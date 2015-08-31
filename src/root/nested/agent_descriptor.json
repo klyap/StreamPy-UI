@@ -1,0 +1,27 @@
+{
+"agent_descriptor_dict":
+{
+    "print_value_stream": [
+        [],
+        [],
+        "print_value",
+        "element",
+        null,
+        0.0
+    ],
+    "print_value_stream1": [
+        [],
+        [],
+        "print_value",
+        "element",
+        null,
+        0.0
+    ]
+},
+"stream_names_tuple":
+[],
+"inports":
+{"print_value_stream_in": "print_value_stream1_PORT_in", "in": "print_value_stream_PORT_in"},
+"outports":
+{}
+}

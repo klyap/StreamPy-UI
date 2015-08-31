@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>&lt;no title&gt; &mdash; PStreams UI 1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="PStreams UI 1 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">PStreams UI 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <p>out_ports =
+[{u&#8217;port&#8217;: u&#8217;out&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/readfile_imypm&#8217;},</p>
+<blockquote>
+<div><p>{u&#8217;port&#8217;: u&#8217;rows_added&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/delta_xyigb&#8217;},
+{u&#8217;port&#8217;: u&#8217;rows_deleted&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/delta_xyigb&#8217;},
+{u&#8217;port&#8217;: u&#8217;rows_changed&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/delta_xyigb&#8217;},
+{u&#8217;port&#8217;: u&#8217;rows_unchanged&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/delta_xyigb&#8217;},
+{u&#8217;port&#8217;: u&#8217;properties&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_90js9&#8217;},
+{u&#8217;port&#8217;: u&#8217;properties&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_4mtrc&#8217;},
+{u&#8217;port&#8217;: u&#8217;properties&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_uxbib&#8217;},
+{u&#8217;port&#8217;: u&#8217;properties&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_y3k95&#8217;},
+{u&#8217;port&#8217;: u&#8217;properties&#8217;,</p>
+<blockquote>
+<div>u&#8217;process&#8217;: u&#8217;browser-app/properties_of_table_q8yn2&#8217;}]</div></blockquote>
+</div></blockquote>
+<p>in_ports =
+[{u&#8217;port&#8217;: u&#8217;input&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/delta_xyigb&#8217;},</p>
+<blockquote>
+<div>{u&#8217;port&#8217;: u&#8217;table&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_table_q8yn2&#8217;},
+{u&#8217;port&#8217;: u&#8217;rows&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_90js9&#8217;},
+{u&#8217;port&#8217;: u&#8217;rows&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_4mtrc&#8217;},
+{u&#8217;port&#8217;: u&#8217;rows&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_uxbib&#8217;},
+{u&#8217;port&#8217;: u&#8217;rows&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/properties_of_rows_y3k95&#8217;},
+{u&#8217;port&#8217;: u&#8217;input&#8217;, u&#8217;process&#8217;: u&#8217;browser-app/printer_qm469&#8217;}]</div></blockquote>
+<p># Dict of functions and the names of their ports
+comps =
+{u&#8217;browser-app/delta&#8217;: {&#8216;in&#8217;: [u&#8217;input&#8217;],</p>
+<blockquote>
+<div><blockquote>
+<div><dl class="docutils">
+<dt>&#8216;out&#8217;: [u&#8217;rows_added&#8217;,</dt>
+<dd>u&#8217;rows_deleted&#8217;,
+u&#8217;rows_changed&#8217;,
+u&#8217;rows_unchanged&#8217;]},</dd>
+</dl>
+</div></blockquote>
+<p>u&#8217;browser-app/printer&#8217;: {&#8216;in&#8217;: [u&#8217;input&#8217;], &#8216;out&#8217;: []},
+u&#8217;browser-app/properties_of_rows&#8217;: {&#8216;in&#8217;: [u&#8217;rows&#8217;], &#8216;out&#8217;: [u&#8217;properties&#8217;]},
+u&#8217;browser-app/properties_of_table&#8217;: {&#8216;in&#8217;: [u&#8217;table&#8217;],</p>
+<blockquote>
+<div>&#8216;out&#8217;: [u&#8217;properties&#8217;]},</div></blockquote>
+<p>u&#8217;browser-app/readfile&#8217;: {&#8216;in&#8217;: [], &#8216;out&#8217;: [u&#8217;out&#8217;]}}</p>
+</div></blockquote>
+<p># Array of all the distinct instances of modules
+instances =
+[u&#8217;browser-app/properties_of_rows_uxbib&#8217;,</p>
+<blockquote>
+<div>u&#8217;browser-app/printer_qm469&#8217;,
+u&#8217;browser-app/properties_of_table_q8yn2&#8217;,
+u&#8217;browser-app/readfile_imypm&#8217;,
+u&#8217;browser-app/delta_xyigb&#8217;,
+u&#8217;browser-app/properties_of_rows_90js9&#8217;,
+u&#8217;browser-app/properties_of_rows_y3k95&#8217;,
+u&#8217;browser-app/properties_of_rows_4mtrc&#8217;]</div></blockquote>
+<p># Dict of the input and output streams connected with each instance of a module
+instance_dict =
+{&#8216;browser-app/delta_xyigb&#8217;: {&#8216;in&#8217;: [&#8216;browser-app/readfile_imypm_out&#8217;],</p>
+<blockquote>
+<div><blockquote>
+<div><dl class="docutils">
+<dt>&#8216;out&#8217;: [&#8216;browser-app/delta_xyigb_rows_added&#8217;,</dt>
+<dd>&#8216;browser-app/delta_xyigb_rows_deleted&#8217;,
+&#8216;browser-app/delta_xyigb_rows_changed&#8217;,
+&#8216;browser-app/delta_xyigb_rows_unchanged&#8217;]},</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>&#8216;browser-app/printer_qm469&#8217;: {&#8216;in&#8217;: [&#8216;browser-app/properties_of_rows_90js9_properties&#8217;,</dt>
+<dd><blockquote class="first">
+<div>&#8216;browser-app/properties_of_rows_4mtrc_properties&#8217;,
+&#8216;browser-app/properties_of_rows_uxbib_properties&#8217;,
+&#8216;browser-app/properties_of_rows_y3k95_properties&#8217;,
+&#8216;browser-app/properties_of_table_q8yn2_properties&#8217;],</div></blockquote>
+<p class="last">&#8216;out&#8217;: []},</p>
+</dd>
+<dt>&#8216;browser-app/properties_of_rows_4mtrc&#8217;: {&#8216;in&#8217;: [&#8216;browser-app/delta_xyigb_rows_deleted&#8217;],</dt>
+<dd>&#8216;out&#8217;: [&#8216;browser-app/properties_of_rows_4mtrc_properties&#8217;]},</dd>
+<dt>&#8216;browser-app/properties_of_rows_90js9&#8217;: {&#8216;in&#8217;: [&#8216;browser-app/delta_xyigb_rows_added&#8217;],</dt>
+<dd>&#8216;out&#8217;: [&#8216;browser-app/properties_of_rows_90js9_properties&#8217;]},</dd>
+<dt>&#8216;browser-app/properties_of_rows_uxbib&#8217;: {&#8216;in&#8217;: [&#8216;browser-app/delta_xyigb_rows_changed&#8217;],</dt>
+<dd>&#8216;out&#8217;: [&#8216;browser-app/properties_of_rows_uxbib_properties&#8217;]},</dd>
+<dt>&#8216;browser-app/properties_of_rows_y3k95&#8217;: {&#8216;in&#8217;: [&#8216;browser-app/delta_xyigb_rows_unchanged&#8217;],</dt>
+<dd>&#8216;out&#8217;: [&#8216;browser-app/properties_of_rows_y3k95_properties&#8217;]},</dd>
+<dt>&#8216;browser-app/properties_of_table_q8yn2&#8217;: {&#8216;in&#8217;: [&#8216;browser-app/readfile_imypm_out&#8217;],</dt>
+<dd>&#8216;out&#8217;: [&#8216;browser-app/properties_of_table_q8yn2_properties&#8217;]},</dd>
+<dt>&#8216;browser-app/readfile_imypm&#8217;: {&#8216;in&#8217;: [],</dt>
+<dd>&#8216;out&#8217;: [&#8216;browser-app/readfile_imypm_out&#8217;]}}</dd>
+</dl>
+</div></blockquote>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/nested/generated_dicts.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li><a href="../index.html">PStreams UI 1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2015, K. Mani Chandy, Ker Lee Yap.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

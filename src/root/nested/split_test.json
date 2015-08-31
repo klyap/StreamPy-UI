@@ -1,0 +1,91 @@
+{
+    "properties": {
+        "name": "demo",
+        "project": "demo",
+        "id": "demo/demo",
+        "environment": {
+            "type": "noflo-browser"
+        },
+        "changed": true
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "demo/generate_stream_of_random_integers_76aaa": {
+            "component": "demo/generate_stream_of_random_integers",
+            "metadata": {
+                "label": "demo/generate_stream_of_random_integers",
+                "x": 324,
+                "y": 324,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "demo/split_into_even_odd_stream_c3c72": {
+            "component": "demo/split_into_even_odd_stream",
+            "metadata": {
+                "label": "demo/split_into_even_odd_stream",
+                "x": 576,
+                "y": 360,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "demo/print_value_stream_dsud6": {
+            "component": "demo/print_value_stream",
+            "metadata": {
+                "label": "demo/print_value_stream",
+                "x": 756,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "demo/print_value_stream_mtx7u": {
+            "component": "demo/print_value_stream",
+            "metadata": {
+                "label": "demo/print_value_stream",
+                "x": 792,
+                "y": 432,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "demo/generate_stream_of_random_integers_76aaa",
+                "port": "output"
+            },
+            "tgt": {
+                "process": "demo/split_into_even_odd_stream_c3c72",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "demo/split_into_even_odd_stream_c3c72",
+                "port": "even"
+            },
+            "tgt": {
+                "process": "demo/print_value_stream_dsud6",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "demo/split_into_even_odd_stream_c3c72",
+                "port": "odd"
+            },
+            "tgt": {
+                "process": "demo/print_value_stream_mtx7u",
+                "port": "in"
+            },
+            "metadata": {}
+        }
+    ]
+}

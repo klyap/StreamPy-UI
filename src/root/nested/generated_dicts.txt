@@ -1,0 +1,71 @@
+out_ports = 
+[{u'port': u'out', u'process': u'browser-app/readfile_imypm'},
+ {u'port': u'rows_added', u'process': u'browser-app/delta_xyigb'},
+ {u'port': u'rows_deleted', u'process': u'browser-app/delta_xyigb'},
+ {u'port': u'rows_changed', u'process': u'browser-app/delta_xyigb'},
+ {u'port': u'rows_unchanged', u'process': u'browser-app/delta_xyigb'},
+ {u'port': u'properties', u'process': u'browser-app/properties_of_rows_90js9'},
+ {u'port': u'properties', u'process': u'browser-app/properties_of_rows_4mtrc'},
+ {u'port': u'properties', u'process': u'browser-app/properties_of_rows_uxbib'},
+ {u'port': u'properties', u'process': u'browser-app/properties_of_rows_y3k95'},
+ {u'port': u'properties',
+  u'process': u'browser-app/properties_of_table_q8yn2'}]
+
+in_ports = 
+[{u'port': u'input', u'process': u'browser-app/delta_xyigb'},
+ {u'port': u'table', u'process': u'browser-app/properties_of_table_q8yn2'},
+ {u'port': u'rows', u'process': u'browser-app/properties_of_rows_90js9'},
+ {u'port': u'rows', u'process': u'browser-app/properties_of_rows_4mtrc'},
+ {u'port': u'rows', u'process': u'browser-app/properties_of_rows_uxbib'},
+ {u'port': u'rows', u'process': u'browser-app/properties_of_rows_y3k95'},
+ {u'port': u'input', u'process': u'browser-app/printer_qm469'}]
+
+# Dict of functions and the names of their ports
+comps =
+{u'browser-app/delta': {'in': [u'input'],
+                        'out': [u'rows_added',
+                                u'rows_deleted',
+                                u'rows_changed',
+                                u'rows_unchanged']},
+ u'browser-app/printer': {'in': [u'input'], 'out': []},
+ u'browser-app/properties_of_rows': {'in': [u'rows'], 'out': [u'properties']},
+ u'browser-app/properties_of_table': {'in': [u'table'],
+                                      'out': [u'properties']},
+ u'browser-app/readfile': {'in': [], 'out': [u'out']}}
+
+# Array of all the distinct instances of modules
+instances = 
+[u'browser-app/properties_of_rows_uxbib',
+ u'browser-app/printer_qm469',
+ u'browser-app/properties_of_table_q8yn2',
+ u'browser-app/readfile_imypm',
+ u'browser-app/delta_xyigb',
+ u'browser-app/properties_of_rows_90js9',
+ u'browser-app/properties_of_rows_y3k95',
+ u'browser-app/properties_of_rows_4mtrc']
+
+# Dict of the input and output streams connected with each instance of a module
+instance_dict =
+{'browser-app/delta_xyigb': {'in': ['browser-app/readfile_imypm_out'],
+                             'out': ['browser-app/delta_xyigb_rows_added',
+                                     'browser-app/delta_xyigb_rows_deleted',
+                                     'browser-app/delta_xyigb_rows_changed',
+                                     'browser-app/delta_xyigb_rows_unchanged']},
+ 'browser-app/printer_qm469': {'in': ['browser-app/properties_of_rows_90js9_properties',
+                                      'browser-app/properties_of_rows_4mtrc_properties',
+                                      'browser-app/properties_of_rows_uxbib_properties',
+                                      'browser-app/properties_of_rows_y3k95_properties',
+                                      'browser-app/properties_of_table_q8yn2_properties'],
+                               'out': []},
+ 'browser-app/properties_of_rows_4mtrc': {'in': ['browser-app/delta_xyigb_rows_deleted'],
+                                          'out': ['browser-app/properties_of_rows_4mtrc_properties']},
+ 'browser-app/properties_of_rows_90js9': {'in': ['browser-app/delta_xyigb_rows_added'],
+                                          'out': ['browser-app/properties_of_rows_90js9_properties']},
+ 'browser-app/properties_of_rows_uxbib': {'in': ['browser-app/delta_xyigb_rows_changed'],
+                                          'out': ['browser-app/properties_of_rows_uxbib_properties']},
+ 'browser-app/properties_of_rows_y3k95': {'in': ['browser-app/delta_xyigb_rows_unchanged'],
+                                          'out': ['browser-app/properties_of_rows_y3k95_properties']},
+ 'browser-app/properties_of_table_q8yn2': {'in': ['browser-app/readfile_imypm_out'],
+                                           'out': ['browser-app/properties_of_table_q8yn2_properties']},
+ 'browser-app/readfile_imypm': {'in': [],
+                                'out': ['browser-app/readfile_imypm_out']}}
