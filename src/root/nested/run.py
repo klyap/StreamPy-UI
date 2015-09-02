@@ -85,7 +85,9 @@ var7 = '/home/klyap/Downloads/simplegroups.json'
 #Animation.dispatch(var6)
     
 var8 = '/home/klyap/Downloads/TwitterSentiment.json'
-#Animation.dispatch(var6)
+
+var9 = 'JSON/doublenested.json'
+#dispatch(var9)
     
 ###################################################
 ## This works if you're on terminal.

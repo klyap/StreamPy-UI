@@ -68,7 +68,7 @@ var myVar;
 
 var stream_names = ['split_into_even_odd_stream_PORT_even', 'generate_stream_of_random_integers_PORT_out', 'multiply_elements_stream_PORT_product', 'split_into_even_odd_stream_PORT_odd', 'multiply_elements_stream1_PORT_product',];
 var edge = ['edge[stream= "split_into_even_odd_stream_PORT_even"]', 'edge[stream= "generate_stream_of_random_integers_PORT_out"]', 'edge[stream= "multiply_elements_stream_PORT_product"]', 'edge[stream= "split_into_even_odd_stream_PORT_odd"]', 'edge[stream= "multiply_elements_stream1_PORT_product"]',];
-var value = ['' ,'22' ,'' ,'' ,'' ,'22' ,'' ,'' ,'' ,'' ,'22' ,'' ,'' ,'' ,'' ,'22' ,'' ,'' ,'' ,'' ,'22' ,'' ,'' ,'' ,'' ,'22' ,'49' ,'' ,'' ,'' ];
+var value = ['' ,'34' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'87' ,'' ,'' ,'' ];
  
 var n = 0;
 function myFunction() {
