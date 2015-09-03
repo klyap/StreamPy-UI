@@ -37,10 +37,10 @@ import MakeParallelNetwork
 
 
 
-def make_my_JSON(instance_dict, comp_list, json_data, x):
+def make_my_JSON(instance_dict, comp_list, json_data):
 
-    stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list, x)
-    agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list, x)    
+    stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list)
+    agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list)    
     
     if json_data['groups']: # for graphs with groups
         groups = {}
@@ -50,7 +50,7 @@ def make_my_JSON(instance_dict, comp_list, json_data, x):
             nodes = []
             for node in group['nodes']:
                 # Rename node
-                label, id = clean_id(node[x:])
+                label, id = clean_id(node.split('/')[1])
 
                 if comp_list[label].index(id) == 0:
                     new_id = ''
@@ -84,7 +84,7 @@ def make_my_JSON(instance_dict, comp_list, json_data, x):
             # Rename node
             for s in ports:
                 node = ports[s]['process']
-                label, id = clean_id(node[x:])
+                label, id = clean_id(node.split('/')[1])
                 #pprint(comp_list)
                 #pprint(label)
                 #pprint(id)
@@ -344,8 +344,8 @@ def write_to_js(nodes, edges, seq):
 
     new = 2
     # Hardcoded local file path (currently for Windows)
-    # TODO: Use dir instead to get path
-    url = "file:///C:/Users/klyap_000/Documents/SURF/JSONtoPy/src/root/nested/try_cytoscape/main.html"
+    # TODO: Rename to renamed cytoscape html folder
+    url = os.path.abspath("try_cytoscape/main.html")
     webbrowser.open(url,new=new)
 
 

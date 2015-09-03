@@ -131,7 +131,7 @@ def cast(s):
 #        tuple of arguments, state
 #Eg. 'generate_random': [
 #            [], ['random_stream'], rand, 'element', (100,), None],
-def make_agent_descriptor_dict(instance_dict, comp_list, x):
+def make_agent_descriptor_dict(instance_dict, comp_list):
     dic = {}
     json_dic = {}
     # TODO: find a better way to do this
@@ -146,7 +146,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list, x):
               }
 
     for stream in instance_dict:
-        s_name, s_id = clean_id(stream[x:])
+        s_name, s_id = clean_id(stream.split('/')[1])
         s_name = new_name(comp_list, s_name, s_id)
         dic[s_name] = [0, 0, 0, 0, 0, 0]
         json_dic[s_name] = []
@@ -166,7 +166,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list, x):
         input = []
         for i in instance_dict[stream]['in']:
             if '=' not in i:
-                src_name_id, src_port = clean_id(i[x:])
+                src_name_id, src_port = clean_id(i.split('/')[1])
                 src_name, src_id = clean_id(src_name_id)
                 
                 src_name = new_name(comp_list, src_name, src_id)
@@ -186,7 +186,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list, x):
                     
         output = []
         for i in instance_dict[stream]['out']:
-            src_name_id, src_port = clean_id(i[x:])
+            src_name_id, src_port = clean_id(i.split('/')[1])
             src_name, src_id = clean_id(src_name_id)
 
             src_name = new_name(comp_list, src_name, src_id)
@@ -215,7 +215,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list, x):
 
 # Make stream_names_tuple from Flowhub's JSON
 # Returns the JSON str equivalent of stream_names_tuple
-def make_stream_names_tuple(instance_dict, comp_list, x):
+def make_stream_names_tuple(instance_dict, comp_list):
     stream_names_tuple = ()
     for comp in instance_dict:
         for i in instance_dict[comp]['in']:
@@ -223,7 +223,7 @@ def make_stream_names_tuple(instance_dict, comp_list, x):
             # For input streams (not parameters)
             if '=' not in i:
                 #Replace random id with 0, 1, 2...
-                src_name_id, src_port = clean_id(i[x:])
+                src_name_id, src_port = clean_id(i.split('/')[1])
                 src_name, src_id = clean_id(src_name_id)
     
                 src_name = new_name(comp_list, src_name, src_id)
@@ -235,7 +235,7 @@ def make_stream_names_tuple(instance_dict, comp_list, x):
         for i in instance_dict[comp]['out']:
 
             #Replace random id with 0, 1, 2...
-            src_name_id, src_port = clean_id(i[x:])
+            src_name_id, src_port = clean_id(i.split('/')[1])
             src_name, src_id = clean_id(src_name_id)
 
             src_name = new_name(comp_list, src_name, src_id)
@@ -250,10 +250,10 @@ def make_stream_names_tuple(instance_dict, comp_list, x):
     return stream_names_tuple_json
 '''
 ## Generate my special JSON file
-def make_my_JSON(instance_dict, comp_list, x):
+def make_my_JSON(instance_dict, comp_list):
 
-    stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list, x)
-    agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list, x)
+    stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list)
+    agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list)
     
     output_file_name = 'agent_descriptor.json'
     f = open(output_file_name, 'w')
@@ -343,7 +343,7 @@ def rand(f_args):
 '''
 # STEP 2
 # SPECIFY THE NETWORK.
-def make_js_seq(instance_dict, json_file_name, x):
+def make_js_seq(instance_dict, json_file_name):
    
     # Specify names of all the streams.
     #stream_names_tuple = ('random_stream', 'multiples_stream', 'non_multiples_stream')
@@ -354,7 +354,7 @@ def make_js_seq(instance_dict, json_file_name, x):
     # value: list of input streams, list of output streams, function, function type,
     #        tuple of arguments, states
     #
-    #agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list, x)
+    #agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list)
 
    
     #agent_descriptor_dict = {
@@ -371,13 +371,13 @@ def make_js_seq(instance_dict, json_file_name, x):
     
     
     
-    comp_list = make_comp_list(instance_dict, x)
-    my_json_file_name = make_my_JSON(instance_dict, comp_list, x)
+    comp_list = make_comp_list(instance_dict)
+    my_json_file_name = make_my_JSON(instance_dict, comp_list)
     
     ## Make agent_descriptor_dict, stream_names_tuple
     agent_descriptor_dict, stream_names_tuple = JSON_to_descriptor_dict_and_stream_names(my_json_file_name)
-    #agent_descriptor_dict = test(instance_dict, comp_list, x)
-    #stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list, x)
+    #agent_descriptor_dict = test(instance_dict, comp_list)
+    #stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list)
         
     
     print('---------agent_descriptor_dict-------')

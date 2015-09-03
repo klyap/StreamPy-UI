@@ -86,7 +86,8 @@ var7 = '/home/klyap/Downloads/simplegroups.json'
     
 var8 = '/home/klyap/Downloads/TwitterSentiment.json'
 
-var9 = 'JSON/doublenested.json'
+var9 = 'JSON/doublenested.json'  # 3 nested graphs. works!
+
 #dispatch(var9)
     
 ###################################################
@@ -99,5 +100,9 @@ fullpath = 'JSON/' + var[1]
 #execfile(example.ex(fullpath))
 #Animation.dispatch(fullpath)
 dispatch(fullpath)
+#dispatch('JSON\\\\' + var[1])
 
+
+#print(os.path.abspath('Downloads//' + var[1]))
+#dispatch(os.path.abspath('Downloads//' + var[1]))
 

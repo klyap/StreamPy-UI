@@ -17,8 +17,8 @@ def delete_startswith_substring(s, substring):
     else:
         return s
     
-#def clean_string(s, x):
-#    return s[x:]
+#def clean_string(s):
+#    return s.split('/')[1]
 
 # Removes the random id at the end of the component name
 # Returns the clean name of the component and the id
@@ -38,7 +38,7 @@ def clean_id(component):
     
     return label, cid
 
-def rename_stream(original_arr, comp_list, x):
+def rename_stream(original_arr, comp_list):
     renamed_arr = []
     for i in original_arr:
         #print('\n this is original arr: \n')
@@ -48,7 +48,7 @@ def rename_stream(original_arr, comp_list, x):
         if '=' in i:
             renamed_arr.append(i)
         else:
-            label_with_id, portname = clean_id(i[x:])
+            label_with_id, portname = clean_id(i.split('/')[1])
             #pprint(label_with_id)
             #pprint(portname)
             label, id = clean_id(label_with_id)
@@ -69,12 +69,12 @@ def rename_stream(original_arr, comp_list, x):
 # The index of the id's will determine
 # which number 1, 2, 3... it will be
 # replaced by
-def make_comp_list(instance_dict, x):
+def make_comp_list(instance_dict):
     comp_list = dict()
     for component, connections in instance_dict.items():
         # populating comp_list
         label, cid = clean_id(component)
-        label = label[x:]
+        label = label.split('/')[1]
         if label in comp_list.keys():
             comp_list[label].append(cid)
         else:
@@ -88,12 +88,12 @@ def make_comp_list(instance_dict, x):
 # Helps populate a .py output file.
 # Returns 2 values:
 # a sorted instance dict & a str of the function calls in order
-def function_calls(instance_dict, x):
+def function_calls(instance_dict):
 
     function_string = str()
     
     # Make comp_list, a dictionary of each module and it's instance id's
-    comp_list = make_comp_list(instance_dict, x)
+    comp_list = make_comp_list(instance_dict)
     
     # Make a copy of instance_dict and call it
     # instance_dict_copy.
@@ -106,8 +106,8 @@ def function_calls(instance_dict, x):
     for component, connections in instance_dict.items():        
         # populating instance_dict_copy with correctly formatted stream names
         connections_copy = dict()
-        connections_copy['in'] = rename_stream(connections['in'], comp_list, x)
-        connections_copy['out'] = rename_stream(connections['out'], comp_list, x)
+        connections_copy['in'] = rename_stream(connections['in'], comp_list)
+        connections_copy['out'] = rename_stream(connections['out'], comp_list)
         instance_dict_copy[component] = connections_copy
 
     # sorted_components will be the topological sort of
@@ -166,7 +166,7 @@ def function_calls(instance_dict, x):
 
     # Cleaning the names of components and ports.
     for c in sorted_components:
-        c[0] = c[0][x:]
+        c[0] = c[0].split('/')[1]
 
         # output_string is something like:
         # 'output_1, output_2, output_3 = ' if there is at least one

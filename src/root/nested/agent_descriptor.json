@@ -1,8 +1,32 @@
 {
 "agent_descriptor_dict":
 {
-    "print_value_stream": [
+    "multiply_elements_stream": [
         [],
+        [
+            "multiply_elements_stream_PORT_out"
+        ],
+        "multiply_elements",
+        "element",
+        [
+            2.0
+        ],
+        null
+    ],
+    "multiply_elements_stream1": [
+        [],
+        [],
+        "multiply_elements",
+        "element",
+        [
+            100.0
+        ],
+        null
+    ],
+    "print_value_stream": [
+        [
+            "multiply_elements_stream_PORT_out"
+        ],
         [],
         "print_value",
         "element",
@@ -10,7 +34,9 @@
         0.0
     ],
     "print_value_stream1": [
-        [],
+        [
+            "multiply_elements_stream_PORT_out"
+        ],
         [],
         "print_value",
         "element",
@@ -19,9 +45,11 @@
     ]
 },
 "stream_names_tuple":
-[],
+[
+    "multiply_elements_stream_PORT_out"
+],
 "inports":
-{"print_value_stream_in": "print_value_stream1_PORT_in", "in": "print_value_stream_PORT_in"},
+{"in1": "multiply_elements_stream_PORT_in", "in": "multiply_elements_stream1_PORT_in"},
 "outports":
-{}
+{"out": "multiply_elements_stream1_PORT_out"}
 }

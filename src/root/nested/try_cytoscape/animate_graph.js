@@ -43,17 +43,17 @@ var cy = cytoscape({
   elements: {
     nodes: [
 	{ data: { id: 'multiply_elements_stream1', name:'multiply_elements_stream1 '} },
-	{ data: { id: 'split_into_even_odd_stream', name:'split_into_even_odd_stream '} },
 	{ data: { id: 'print_value_stream1', name:'print_value_stream1 '} },
+	{ data: { id: 'print_value_stream2', name:'print_value_stream2 '} },
 	{ data: { id: 'multiply_elements_stream', name:'multiply_elements_stream '} },
 	{ data: { id: 'print_value_stream', name:'print_value_stream '} },
 	{ data: { id: 'generate_stream_of_random_integers', name:'generate_stream_of_random_integers '} }],
 edges: [
-	{ data: { stream: 'multiply_elements_stream1_PORT_product', source: 'multiply_elements_stream1', target: 'print_value_stream', name:'multiply_elements_stream1_PORT_product:'} },
-	{ data: { stream: 'split_into_even_odd_stream_PORT_even', source: 'split_into_even_odd_stream', target: 'multiply_elements_stream1', name:'split_into_even_odd_stream_PORT_even:'} },
-	{ data: { stream: 'split_into_even_odd_stream_PORT_odd', source: 'split_into_even_odd_stream', target: 'multiply_elements_stream', name:'split_into_even_odd_stream_PORT_odd:'} },
-	{ data: { stream: 'multiply_elements_stream_PORT_product', source: 'multiply_elements_stream', target: 'print_value_stream1', name:'multiply_elements_stream_PORT_product:'} },
-	{ data: { stream: 'generate_stream_of_random_integers_PORT_out', source: 'generate_stream_of_random_integers', target: 'split_into_even_odd_stream', name:'generate_stream_of_random_integers_PORT_out:'} }]
+	{ data: { stream: 'multiply_elements_stream1_PORT_out', source: 'multiply_elements_stream1', target: 'print_value_stream', name:'multiply_elements_stream1_PORT_out:'} },
+	{ data: { stream: 'multiply_elements_stream_PORT_out', source: 'multiply_elements_stream', target: 'print_value_stream1', name:'multiply_elements_stream_PORT_out:'} },
+	{ data: { stream: 'multiply_elements_stream_PORT_out', source: 'multiply_elements_stream', target: 'print_value_stream2', name:'multiply_elements_stream_PORT_out:'} },
+	{ data: { stream: 'generate_stream_of_random_integers_PORT_out', source: 'generate_stream_of_random_integers', target: 'multiply_elements_stream1', name:'generate_stream_of_random_integers_PORT_out:'} },
+	{ data: { stream: 'generate_stream_of_random_integers_PORT_out', source: 'generate_stream_of_random_integers', target: 'multiply_elements_stream', name:'generate_stream_of_random_integers_PORT_out:'} }]
     },
   
   layout: {
@@ -66,9 +66,9 @@ edges: [
 
 var myVar;
 
-var stream_names = ['split_into_even_odd_stream_PORT_even', 'generate_stream_of_random_integers_PORT_out', 'multiply_elements_stream_PORT_product', 'split_into_even_odd_stream_PORT_odd', 'multiply_elements_stream1_PORT_product',];
-var edge = ['edge[stream= "split_into_even_odd_stream_PORT_even"]', 'edge[stream= "generate_stream_of_random_integers_PORT_out"]', 'edge[stream= "multiply_elements_stream_PORT_product"]', 'edge[stream= "split_into_even_odd_stream_PORT_odd"]', 'edge[stream= "multiply_elements_stream1_PORT_product"]',];
-var value = ['' ,'34' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'' ,'' ,'' ,'' ,'34' ,'87' ,'' ,'' ,'' ];
+var stream_names = ['generate_stream_of_random_integers_PORT_out', 'multiply_elements_stream_PORT_out', 'multiply_elements_stream_PORT_out', 'generate_stream_of_random_integers_PORT_out', 'multiply_elements_stream1_PORT_out',];
+var edge = ['edge[stream= "generate_stream_of_random_integers_PORT_out"]', 'edge[stream= "multiply_elements_stream_PORT_out"]', 'edge[stream= "multiply_elements_stream_PORT_out"]', 'edge[stream= "generate_stream_of_random_integers_PORT_out"]', 'edge[stream= "multiply_elements_stream1_PORT_out"]',];
+var value = ['' ,'' ,'' ,'41' ,'4100.0' ,'' ,'' ,'' ,'41' ,'4100.0' ,'' ,'' ,'' ,'41' ,'4100.0' ,'' ,'82.0' ,'82.0' ,'' ,'4100.0' ,'' ,'82.0' ,'82.0' ,'' ,'' ,'50' ,'82.0' ,'82.0' ,'50' ,'' ];
  
 var n = 0;
 function myFunction() {

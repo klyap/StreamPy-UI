@@ -51,11 +51,11 @@ def make_json(json_file_name):
         instance_dict = make_instance_dict(json_data, instances)
         #pprint(instance_dict)
 
-        comp_list = make_comp_list(instance_dict, x)
+        comp_list = make_comp_list(instance_dict)
         #pprint(comp_list)
 
         # Make a JSON file in the format I want from Flowhub's JSON
-        my_json_file_name = make_my_JSON(instance_dict, comp_list, json_data, x)
+        my_json_file_name = make_my_JSON(instance_dict, comp_list, json_data)
 
         # DEBUG
         #with open(my_json_file_name) as data_file:
@@ -300,8 +300,8 @@ def unwrap_subgraph(my_json_file_name):
     #json_file = open('json_file.json', 'w')
     #json.dump(j, json_file)
 
-    print '---------J = current agent dic------'
-    pprint(j)
+    #print '---------J = current agent dic------'
+    #pprint(j)
 
     #### GET SUBGRAPH NAMES #####
     # Make array of functions in components_test.py
@@ -352,9 +352,6 @@ def unwrap_subgraph(my_json_file_name):
                 with open(new_json) as new_json_file:
                     subgraph_dict = json.load(new_json_file)
 
-                #print '------subgraph_dict--------'
-                #pprint
-                #                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       (subgraph_dict)
                 # Pick out needed parts
                 # then pick out the parts that need to be replaced HERE
 
@@ -364,18 +361,91 @@ def unwrap_subgraph(my_json_file_name):
                 # replace in/out stream with unfound's name
                 # with correct component name
                 unfound_entry = deepcopy(new_dict['agent_descriptor_dict'][unfound])
-                print '------unfound entry------'
-                pprint(unfound_entry)
+
                 # Now that it's stored as unfound_entry, delete it from the dict
                 del new_dict['agent_descriptor_dict'][unfound]
 
+                #print '------unfound entry------'
+                #(unfound_entry)
 
-                # Add new unwrapped components
+
+                # Check for a component in newly unwrapped comps that were used outside it and
+                # rename accordingly.
+                print '=========subgraph dict========='
+                pprint(subgraph_dict)
+
+                for comp in subgraph_dict['agent_descriptor_dict'].keys():
+                #for comp in ['print_value_stream', 'print_value_stream1']:
+                    occurences = 0
+                    for outside_comp in new_dict['agent_descriptor_dict'].keys():
+                        clean_comp = comp
+                        my_id = int()
+                        m = re.search(r'\d+$', clean_comp)
+                        if m is not None:
+                            clean_comp = clean_comp.replace(m.group(), '')
+                            my_id = int(m.group())
+
+                        clean_outside_comp = outside_comp
+                        m = re.search(r'\d+$', clean_outside_comp)
+                        if m is not None:
+                            clean_outside_comp = clean_outside_comp.replace(m.group(), '')
+
+                        if clean_comp == clean_outside_comp:
+                                occurences += 1
+                    print comp + ' occurred: ' + str(occurences)
+                    if occurences > 0:
+                        # Rename the comp in agent desc dict
+                        clean_comp = comp.strip(str(my_id)) + str(my_id + occurences)
+                        subgraph_dict['agent_descriptor_dict'][clean_comp] = subgraph_dict['agent_descriptor_dict'][comp]
+                        del subgraph_dict['agent_descriptor_dict'][comp]
+
+                        # Rename contents of comp in agen desc dict (ie. input and output streams)
+                        #print '===========RENAMING INSIDE==========='
+                        #pprint(subgraph_dict['agent_descriptor_dict'])
+                        for c in subgraph_dict['agent_descriptor_dict']:
+                            for s in subgraph_dict['agent_descriptor_dict'][c][0]:
+                                #pprint(s)
+                                if s.split("_PORT_")[0] == comp:
+                                    new_s = clean_comp + '_PORT_' + s.split('_PORT_')[1]
+                                    subgraph_dict['agent_descriptor_dict'][c][0].append(new_s)
+
+                                    subgraph_dict['agent_descriptor_dict'][c][0].remove(s)
+                                    #pprint(subgraph_dict['agent_descriptor_dict'][c][0])
+                                #pprint(subgraph_dict['agent_descriptor_dict'])
+
+                            for s in subgraph_dict['agent_descriptor_dict'][c][1]:
+                                #pprint(s)
+                                if s.split("_PORT_")[0] == comp:
+                                    new_s = clean_comp + '_PORT_' + s.split('_PORT_')[1]
+                                    subgraph_dict['agent_descriptor_dict'][c][1].append(new_s)
+
+                                    subgraph_dict['agent_descriptor_dict'][c][1].remove(s)
+                                    #pprint(subgraph_dict['agent_descriptor_dict'][c][1])
+                                #pprint(subgraph_dict['agent_descriptor_dict'])
+
+                        # Rename the comp in inports, outports and stream_names_tuple
+                        for port in subgraph_dict['inports']:
+                            element = subgraph_dict['inports'][port]
+                            if element.split('_PORT_')[0] == comp:
+                                subgraph_dict['inports'][port] = clean_comp + '_PORT_' + element.split('_PORT_')[1]
+
+                        for port in subgraph_dict['outports']:
+                            element = subgraph_dict['outports'][port]
+                            if element.split('_PORT_')[0] == comp:
+                                subgraph_dict['outports'][port] = clean_comp + '_PORT_' + element.split('_PORT_')[1]
+
+                        for c in subgraph_dict['stream_names_tuple']:
+                            if c.split('_PORT_')[0] == comp:
+                                subgraph_dict['stream_names_tuple'].append(clean_comp + '_PORT_' + element.split('_PORT_')[1])
+                                subgraph_dict['stream_names_tuple'].remove(c)
+
+                        #pprint(subgraph_dict)
+
+
+                # Add new, renamed unwrapped components
                 for comp in subgraph_dict['agent_descriptor_dict'].keys():
                     new_dict['agent_descriptor_dict'][comp] = subgraph_dict['agent_descriptor_dict'][comp]
 
-                #print '---new_dict with unwrapped comps---'
-                #pprint(new_dict)
 
                 # Get exposed outports and inports of subgraph
                 inports = subgraph_dict['inports']
@@ -391,14 +461,10 @@ def unwrap_subgraph(my_json_file_name):
                 #pprint(new_dict)
                 for comp in new_dict['agent_descriptor_dict']:
                     #print 'replacing input streams in ' + comp
-                    #pprint(new_dict['agent_descriptor_dict'])
+                    #pprint(new_dict['agent_descriptor_dict'][comp])
 
                     new_inputs = []
-                    # DEBUG
-                    #print 'debug: '
-                    #pprint(new_dict['agent_descriptor_dict'][comp][0])
                     for s in new_dict['agent_descriptor_dict'][comp][0]:
-                        #print 'should I replace ' + s
                         # if exposed output streams come from a comp in
                         # this subgraph, add this to comp's input streams
                         renamed_stream = s
@@ -406,35 +472,34 @@ def unwrap_subgraph(my_json_file_name):
                             # Replace s with correctly named stream in exposed outports
                             # by matching the s.split('_PORT_')[1] with a key in dict
                             # and extracting the value as my new s
-                            print 'loooking for:'
-                            pprint(s.split('_PORT_')[1])
-                            pprint(outports)
+                            #print 'looking for:'
+                            #pprint(s.split('_PORT_')[1])
+                            #pprint(outports)
                             renamed_stream = outports[s.split('_PORT_')[1]]
-                            #print 'renaming:'
-                            #print renamed_stream
                         new_inputs.append(renamed_stream)
 
                     new_dict['agent_descriptor_dict'][comp][0] = new_inputs
-                    #print '---------just added new inputs to ' + comp
-                    #pprint(new_dict['agent_descriptor_dict'][comp])
 
                 # Now check components outside subgraphs for those
                 # that connect to the inputs in our list
                 # (These streams in new_inputs are currently named after
                 # the in port. We want it to be the out port of the prev component)
-                print '------------unfound entry----------------'
-                pprint(unfound_entry)
+                #print '------------unfound entry----------------'
+                #pprint(unfound_entry)
+                #print '-------------inports------------------'
+                #pprint(inports)
                 for i in range(len(inports.values())):
                     # Get component name from inport stream (ie. compname_PORT_in)
                     comp_name = inports.values()[i].split('_PORT_')[0]
-                    print 'at index: ' + str(i)
-                    print inports.values()[i]
+                    #print 'at index: ' + str(i)
+                    #print inports.values()[i]
 
-                    print 'debug: '
-                    pprint(new_dict['agent_descriptor_dict'])
-                    print comp_name
-                    print 'debug: '
-                    pprint(unfound_entry[0][i])
+                    #print '===== adding to: ======= ' + comp_name
+                    #pprint(new_dict['agent_descriptor_dict'])
+
+                    #print '====== with : ========== '
+                    #pprint(unfound_entry[0][i])
+
                     # Match it with a input stream of the same index
                     new_dict['agent_descriptor_dict'][comp_name][0].append(unfound_entry[0][i])
                     #print 'just added an input stream:'
@@ -496,10 +561,8 @@ def unwrap_subgraph(my_json_file_name):
                         temp_dict.remove(s)
                         new_dict['stream_names_tuple'] = temp_dict
 
-                print '-----new dict with stream names tuple--------'
-                pprint(new_dict)
-
-
+                #print '-----new dict with stream names tuple--------'
+                #pprint(new_dict)
 
             except NameError:
                 print 'No such function or subgraph JSON file: ' + f
@@ -507,7 +570,7 @@ def unwrap_subgraph(my_json_file_name):
     # RECURSE
         json_file = open('json_file.json', 'w')
         json.dump(new_dict, json_file)
-        json_file.close()
+        #json_file.close()
         print 'going for the recursion'
         return unwrap_subgraph('json_file.json')
     else:

@@ -10,7 +10,7 @@ import webbrowser
 import os
 #from root.nested.instances import instance_dict
 
-def make_conn_dict(conn, x):
+def make_conn_dict(conn):
     conn_dict = {}
     for i in conn:
         if 'src' in i.keys():
@@ -100,7 +100,7 @@ def ex(json_file_name):
 
     
     ## x is the length of the file name (aka the part we need to cut off)
-    x = len(comps.keys()[0].encode('ascii','ignore').split('/')[0]) + 1
+    #x = len(comps.keys()[0].encode('ascii','ignore').split('/')[0]) + 1
 
     setup_template_file = open('setup_template_simple.txt', 'r')
     setup_template = [line.rstrip('\n') for line in setup_template_file] # convert file to array of lines
@@ -207,7 +207,7 @@ def ex(json_file_name):
     
     instance_dict = make_instance_dict(data, instances)
     #pprint(instance_dict)
-    instance_dict_copy, output_str = function_calls(instance_dict, x)
+    instance_dict_copy, output_str = function_calls(instance_dict)
     f.write(output_str)
     
     #execfile(output_file_name)
@@ -239,8 +239,10 @@ def make_instance_dict(data, instances):
         else:
             if sp + '_' + spp not in instance_dict[sp]['out']:
                 instance_dict[sp]['out'].append(sp +'_' + spp)
-                
+            '''
             if sp + '_'+ spp not in instance_dict[tp]['in']:
                 instance_dict[tp]['in'].append(sp +'_'+spp)
+            '''
+            instance_dict[tp]['in'].append(sp +'_'+spp)
     return instance_dict
 
