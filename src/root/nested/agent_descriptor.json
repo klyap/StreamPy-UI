@@ -1,31 +1,19 @@
 {
 "agent_descriptor_dict":
 {
-    "multiply_elements_stream": [
+    "generate_stream_of_random_integers": [
         [],
         [
-            "multiply_elements_stream_PORT_out"
+            "generate_stream_of_random_integers_PORT_out"
         ],
-        "multiply_elements",
+        "generate_of_random_integers",
         "element",
-        [
-            2.0
-        ],
-        null
-    ],
-    "multiply_elements_stream1": [
-        [],
-        [],
-        "multiply_elements",
-        "element",
-        [
-            100.0
-        ],
-        null
+        null,
+        "None"
     ],
     "print_value_stream": [
         [
-            "multiply_elements_stream_PORT_out"
+            "split_into_even_odd_stream_PORT_odd"
         ],
         [],
         "print_value",
@@ -35,21 +23,36 @@
     ],
     "print_value_stream1": [
         [
-            "multiply_elements_stream_PORT_out"
+            "split_into_even_odd_stream_PORT_even"
         ],
         [],
         "print_value",
         "element",
         null,
         0.0
+    ],
+    "split_into_even_odd_stream": [
+        [
+            "generate_stream_of_random_integers_PORT_out"
+        ],
+        [
+            "split_into_even_odd_stream_PORT_even",
+            "split_into_even_odd_stream_PORT_odd"
+        ],
+        "split_into_even_odd",
+        "element",
+        null,
+        "None"
     ]
 },
 "stream_names_tuple":
 [
-    "multiply_elements_stream_PORT_out"
+    "split_into_even_odd_stream_PORT_odd",
+    "generate_stream_of_random_integers_PORT_out",
+    "split_into_even_odd_stream_PORT_even"
 ],
 "inports":
-{"in1": "multiply_elements_stream_PORT_in", "in": "multiply_elements_stream1_PORT_in"},
+{},
 "outports":
-{"out": "multiply_elements_stream1_PORT_out"}
+{}
 }

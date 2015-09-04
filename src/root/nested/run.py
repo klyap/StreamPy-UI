@@ -1,108 +1,101 @@
-import os
-from pprint import pprint
-import sys
-import example
-#import animation
-import Animation
-from Animation import *
+'''
+This module parses the input arguments and extracts the necessary
+data structures from it, then calls the appropriate functions to
+process it.
+
+'''
+
 from Subgraph import *
 from Multiprocessing import *
+import getpass
 
-###################################################
+
 def dispatch(json_file_name):
+    '''
+    Looks at input JSON file and determines
+    which functions should be called to
+    process it.
+
+    Parameters
+    ----------
+    json_file_name : str
+        Path to JSON file to be executed
+
+    Returns
+    -------
+    None
+
+    '''
     # Convert JSON to my format
-    print 'json file name: ', json_file_name
     agent_dict_json = make_json(json_file_name)
 
-    # DEBUG
-    print 'in dispatch'
-
-    # Extract dict/tup from it
+    # Extract the dictionary from JSON
     with open(agent_dict_json) as data_file:
         json_data = json.load(data_file)
 
-    # Case 1: No groups -> unwrap subgraphs -> animate
+    # Case 1: No groups -> no parallel processing
     if 'groups' not in json_data.keys():
-        print 'no groups!'
-
+        # First expose nested subgraphs
         agent_dict_json = unwrap_subgraph(agent_dict_json)
-        print agent_dict_json
+        # Then animate it
         make_js(agent_dict_json)
 
-    # Case 2: Has groups -> unwrap subgraphs -> parallel process
+    # Case 2: Has groups -> parallel processing
     else:
-        print 'has groups!'
-
+        # Sort components into indicated processes
         big_dict = parallel_dict(json_data)
+        # Then execute using multiprocessing
         run_parallel(big_dict)
 
 ###################################################
-## If you're running from an IDE, use this:
-#var = raw_input("Please enter name of JSON: ")
-#var = str(var)
+# If you're running from an IDE...
 
-#var = 'components_test.json'
-## WORKING CASE:
-#var = 'JSON/SplitEvenOdd.json'
-#execfile(example.ex(var))
-#animation.animate(var)
+# Simple example
+var1 = 'JSON/SplitEvenOdd.json'
 
-## ERROR CASE 1
-## Error in: components_test.py split_stream() component
-var1 = 'JSON/makenetwork.json'
-#execfile(example.ex(var1))    ## IF YOU COMMENT THIS LINE OUT, VAR WORKS
-#animation.animate(var1)
+# Example of an input JSON file that is already in the
+# special agent descriptor dict format
+var4 = 'JSON/agent_descriptor.json'
 
-## ERROR CASE 2: both example.py (running the output Py file) and 
-## running the animation don't work
-## Error in: components_test.py multiples_stream() component
-var2 = 'JSON/animation.json'
-#execfile(example.ex(var2))
-#animation.animate(var2)
+# Example using parameter arguments
+var5 = 'JSON/multiplyparam.json'
 
+# Nested subgraph example
+var6 = 'JSON/simplesubgraph.json'
 
-## CURRENT TESTING PARAMS PARSING:
-#var3 = '/home/klyap/Downloads/main.json' #new 3-input components for split
-var3 = 'JSON/splitparams.json' #equivalent non-3-input components
+# Graph with 3 nested subgraphs
+var9 = 'JSON/doublenested.json'
 
-#var3 = '/home/klyap/Downloads/multiplyparam.json' #new 3-input components for multiply
-#var3 = '/home/klyap/Downloads/evenodd.json' #new 3-input components for evenodd
+# Multiprocessing example. Doesn't work yet
+var7 = 'JSON/simplegroups.json'
 
-var4 = 'agent_descriptor.json'
-#execfile(example.ex(var3))
-#animation.animate(var3)
+# UNCOMMENT the following 3 lines to be prompted
+# for a JSON file name at each run
+# var = raw_input("Please enter path of JSON: ")
+# var = str(var)
+# dispatch(var)
 
-## Experiment with running from Animation
-## Should work for both Flowhub and my JSON files (ie var 3 and var 4)
-var5 = '/home/klyap/Downloads/multiplyparam.json' #subgraphs with same components that criss cross
-#var6 = '/home/klyap/Downloads/simplesubgraph.json'
-var6 = 'JSON/simplesubgraph.json' # for Windows
-#var6 = '/home/klyap/Downloads/subgraph_demo.json'
-var7 = '/home/klyap/Downloads/simplegroups.json'
-#Animation.make_json(var7)
+# UNCOMMENT the following line to run the same
+# file each run, replacing 'var1' with the
+# path to the file you want
+# dispatch(var1)
 
-# for groups..
-#Animation.dispatch(var6)
-    
-var8 = '/home/klyap/Downloads/TwitterSentiment.json'
-
-var9 = 'JSON/doublenested.json'  # 3 nested graphs. works!
-
-#dispatch(var9)
-    
 ###################################################
-## This works if you're on terminal.
-## Usage: navigate into the directory with this file
-##        type: python run.py NAME_OF_JSON_FILE
+# If you're running from terminal:
+# Usage: navigate into the directory with this file
+#        type: python run.py NAME_OF_JSON_FILE
+user_os = sys.platform
+user_name = getpass.getuser()
+
+if user_os == 'darwin':
+    path = 'file:///Users/' + user_name + '/Downloads/'
+elif user_os[:3] == 'win':
+    path = 'C:/Users/' + user_name + '/Downloads/'
+elif 'linux' in user_os:
+    path = '/home/' + user_name + '/Downloads/'
+else:
+    path = ''
+
 var = sys.argv
-#fullpath = '/home/klyap/Downloads/' + var[1]
-fullpath = 'JSON/' + var[1]
-#execfile(example.ex(fullpath))
-#Animation.dispatch(fullpath)
+fullpath = path + var[1]
 dispatch(fullpath)
-#dispatch('JSON\\\\' + var[1])
-
-
-#print(os.path.abspath('Downloads//' + var[1]))
-#dispatch(os.path.abspath('Downloads//' + var[1]))
-
