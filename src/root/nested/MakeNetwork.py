@@ -1,3 +1,7 @@
+'''
+Handle agent descriptor dict <--> JSON
+'''
+
 from Stream import Stream
 from Stream import _no_value, _multivalue
 from Agent import Agent
@@ -7,8 +11,6 @@ from pprint import pprint
 from example import *
 from components_test import *
 import re
-from array import array
-#from root.nested.Stream_Learn import stream_learn
 
 
 def make_network(stream_names_tuple, agent_descriptor_dict):
@@ -113,17 +115,6 @@ def make_network(stream_names_tuple, agent_descriptor_dict):
 
     return (stream_dict, agent_dict, agent_timer_dict)
 
-## Convert string to the correct object type (int, float, string)
-def cast(s):
-    try:
-        int(s)
-        return float(s)
-    except ValueError:
-        try:
-            float(s)
-            return int(s)
-        except ValueError:
-            return str(s)
 
 ## This goes from Flowhub's JSON to our JSON    
 # key: agent name
@@ -248,25 +239,7 @@ def make_stream_names_tuple(instance_dict, comp_list):
     stream_names_tuple_json = json.dumps(stream_names_tuple, sort_keys=True, 
                               indent=4, separators=(',', ': '))
     return stream_names_tuple_json
-'''
-## Generate my special JSON file
-def make_my_JSON(instance_dict, comp_list):
 
-    stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list)
-    agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list)
-    
-    output_file_name = 'agent_descriptor.json'
-    f = open(output_file_name, 'w')
-    f.write('{\n')
-    f.write('\"agent_descriptor_dict\":\n')
-    f.write(agent_descriptor_dict)
-    f.write(',\n')
-    f.write('\"stream_names_tuple\":\n')
-    f.write(stream_names_tuple)
-    f.write('\n}')
-    f.close()
-    return output_file_name
-'''
 ## Grab JSON in my special format and turn into dict to execute
 def JSON_to_descriptor_dict_and_stream_names(my_json_file_name):
     ## Import json file
@@ -320,177 +293,104 @@ def JSON_to_descriptor_dict_and_stream_names(my_json_file_name):
         
     return copy, json_data['stream_names_tuple']
     
-    
-'''
-# STEP 1
-# PROVIDE CODE OR IMPORT PURE (NON-STREAM) FUNCTIONS
+def make_my_JSON(instance_dict, comp_list, json_data):
 
-from random import randint
-def rand(f_args):
-    max_integer = f_args[0]
-    return randint(0, max_integer)
+    stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list)
+    agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list)    
+    
+    if json_data['groups']: # for graphs with groups
+        groups = {}
+        for group in json_data['groups']:
+            
+            group_name = group['name']
+            nodes = []
+            for node in group['nodes']:
+                # Rename node
+                label, id = clean_id(node.split('/')[1])
 
-#def split(m, f_args):
-#    divisor = f_args[0]
-#    return [_no_value, m] if m%divisor else [m, _no_value]
+                if comp_list[label].index(id) == 0:
+                    new_id = ''
+                else:
+                    new_id = str(comp_list[label].index(id))
+                
+                new_name = label + new_id
+                nodes.append(new_name)
+            # Add group data to the dict 'groups'
+            groups[group_name] = nodes
+            
+        groups = str(groups)
+        groups = groups.replace('\'', '\"').replace('u\"', '\"')
+        pprint(groups)
+    else:
+        groups = None
 
-#def print_value(v, index):
-#        #print name + '[' , index , '] = ', v
-#        print '[' , index , '] = ', v
-#        return (index+1)
-'''
+    inports = 'inports'
+    outports = 'outports'
+    # if there are exposed inports
+    def get_exposed_ports(in_ports):
+        str_name = str(in_ports)
+        if len(json_data[str_name].keys()) > 0:
+            ports = json_data[str_name]
+            ## Start renaming
+            # Make new dict
+            output = {}
+            # Rename node
+            for s in ports:
+                node = ports[s]['process']
+                label, id = clean_id(node.split('/')[1])
+                if comp_list[label].index(id) == 0:
+                    new_id = ''
+                else:
+                    new_id = str(comp_list[label].index(id))
+                
+                new_sname = label + new_id + '_PORT_' + ports[s]['port']
+                
+                # Save cleaned name to dict
+                output[s] = new_sname
+            
+            in_ports = str(output)
+            in_ports = in_ports.replace('\'', '\"').replace('u\"', '\"')
+        else:
+            in_ports = '{}'
+        return in_ports
+    
+    inports = get_exposed_ports(inports)
+    outports = get_exposed_ports(outports)
+    
+    output_file_name = 'agent_descriptor.json'
+    f = open(output_file_name, 'w')
+    f.write('{\n')
+    
+    f.write('\"agent_descriptor_dict\":\n')
+    f.write(agent_descriptor_dict)
+    f.write(',\n')
+    
+    f.write('\"stream_names_tuple\":\n')
+    f.write(stream_names_tuple)
 
-'''
-# STEP 2
-# SPECIFY THE NETWORK.
-def make_js_seq(instance_dict, json_file_name):
-   
-    # Specify names of all the streams.
-    #stream_names_tuple = ('random_stream', 'multiples_stream', 'non_multiples_stream')
-    #stream_names_tuple = ('generate_stream_of_random_integers_PORT_output', 'split_stream_PORT_multiples', 'split_stream_PORT_nonmultiples')
     
-    # Specify the agents:
-    # key: agent name
-    # value: list of input streams, list of output streams, function, function type,
-    #        tuple of arguments, states
-    #
-    #agent_descriptor_dict = make_agent_descriptor_dict(instance_dict, comp_list)
+    if groups:
+        f.write(',\n')
+        f.write('\"groups\":\n')
+        f.write(groups)
+    
+    if inports:
+        f.write(',\n')
+        f.write('\"inports\":\n')
+        f.write(inports)
+    
+    if outports:
+        f.write(',\n')
+        f.write('\"outports\":\n')
+        f.write(outports)
 
-   
-    #agent_descriptor_dict = {
-    #    'generate_stream_of_random_integers': [
-    #        [], ['generate_stream_of_random_integers_PORT_output'], generate_of_random_integers, 'element', (100,), None],
-    #    'split_stream': [
-    #        ['generate_stream_of_random_integers_PORT_output'], ['split_stream_PORT_multiples', 'split_stream_PORT_nonmultiples'],
-    #        split, 'element', (2,), None],
-    #    'print_value_stream': [
-    #        ['generate_stream_of_random_integers_PORT_output'], [], print_value, 'element', None, 0],
-    #    'print_value_stream1': [['split_stream_PORT_multiples'], [], print_value, 'element', None, 0],
-    #    'print_value_stream2': [['split_stream_PORT_nonmultiples'], [], print_value, 'element', None, 0]
-    #}
+    
+    f.write('\n}')
+    f.close()
     
     
-    
-    comp_list = make_comp_list(instance_dict)
-    my_json_file_name = make_my_JSON(instance_dict, comp_list)
-    
-    ## Make agent_descriptor_dict, stream_names_tuple
-    agent_descriptor_dict, stream_names_tuple = JSON_to_descriptor_dict_and_stream_names(my_json_file_name)
-    #agent_descriptor_dict = test(instance_dict, comp_list)
-    #stream_names_tuple = make_stream_names_tuple(instance_dict, comp_list)
-        
-    
-    print('---------agent_descriptor_dict-------')
-    pprint(agent_descriptor_dict)
-    print('---------stream_names_tuple-------')
-    pprint(stream_names_tuple)
-    
-    # STEP 3: MAKE THE NETWORK
-    stream_dict, agent_dict, t_dict = make_network(
-        stream_names_tuple, agent_descriptor_dict)
-    print('------stream_dict_-------')
-    pprint(stream_dict)
-    ## # Only for debugging
-    ## for key, value in s_dict.items():
-    ##     print 'stream name', key
-    ##     print 'stream', value
+    return output_file_name    
 
-    ## for key, value in a_dict.items():
-    ##     print 'agent name', key
-    ##     print 'agent', value
-
-    ## for key, value in t_dict.items():
-    ##     print 'timer name is', key
-    ##     print 'timer', value
-
-    # STEP 4: DRIVE THE NETWORK BY APPENDING
-    #      VALUES TO TIMER STREAMS
-    
-    ## AND ALSO MAKE STRINGS TO BE WRITTEN TO OUTPUT FILE
-    
-    
-    # val_str is a list of values of each time step,
-    # concatnated in one long, comma separated string
-    val_str = str()
-    
-    # list of the streams in order
-    streams_list = []
-    streams_list_done = False
-    
-    # Doesn't work for copies of streams:
-    #    it gives 3 names, even when 1 was called twice
-    # Create a list of stream names for the JS file
-    #for stream_name in stream_names_tuple:
-        # Create list of all streams at each time step
-        #streams_list.append(stream_name)
-    #print '-----------streams_list-------------'
-    #pprint(streams_list)
-    
-    for t in range(5):
-        print '--------- time step: ', t
-        # Append t to each of the timer streams
-        for stream in t_dict.values():
-            print '-------', stream.name
-            stream.append(t)
-            ## for stream in stream_dict.values():
-            ##     stream.print_recent()
-
-            # Print messages in transit to the input port
-            # of each agent.
-            for agent_name, agent in agent_dict.iteritems():
-                descriptor = agent_descriptor_dict[agent_name]
-                input_stream_list = descriptor[0]
-                for stream_name in input_stream_list:
-                    print '--------input_stream_list: ', input_stream_list
-                    # Create list of all streams at each time step
-                    if streams_list_done == False:
-                        streams_list.append(stream_name)
-                    
-                    # Get the correct stream object
-                    stream = stream_dict[stream_name]
-                    
-                    # value is a string of this form:
-                    # [4]
-                    value = str(stream.recent[stream.start[agent]:stream.stop])
-                    #print '----value------'
-                    #print value[1:-1]
-                    val_str = val_str + '\'' + value[1:-1] + '\' ,'
-                    #val_str = val_str + index_and_value.split(' = ')[1] + ','
-                    
-                    print "messages in ", stream_name, "to", agent.name
-                    print stream.recent[stream.start[agent]:stream.stop]
-            streams_list_done = True
-
-    val_str = 'var value = [' + val_str[:-1] + '];'
-    
-    # stream_str is a list of all streams, 
-    # selector_str is the list of streams, but formatted 
-    # to be used as selectors in JS
-    stream_str = str()
-    selector_str = str()
-    for s in streams_list:
-        selector_str = selector_str + '\'edge[stream= "' + s + '"]\', '
-        stream_str = stream_str + '\'' + s + '\', '
-    selector_str = 'var edge = [' + selector_str[:-1] + '];'
-    stream_str = 'var stream_names = [' + stream_str[:-1] + '];'
-    
-    
-    pprint(stream_str + '\n' +  selector_str + '\n' + val_str)
-    return stream_str + '\n' +  selector_str + '\n' + val_str
-## t_dict['generate_random'].append(0)
-## s_dict['random_stream'].print_recent()
-## s_dict['multiples_stream'].print_recent()
-## s_dict['non_multiples_stream'].print_recent()
-
-## t_dict['split'].append(1)
-## s_dict['random_stream'].print_recent()
-## s_dict['multiples_stream'].print_recent()
-## s_dict['non_multiples_stream'].print_recent()
-'''
-
-#if __name__ == '__main__':
-#    main()
-    
 
 
     

@@ -4,10 +4,11 @@ data structures from it, then calls the appropriate functions to
 process it.
 
 '''
+import sys
+import getpass
 
 from Subgraph import *
 from Multiprocessing import *
-import getpass
 
 
 def dispatch(json_file_name):
@@ -88,7 +89,8 @@ user_os = sys.platform
 user_name = getpass.getuser()
 
 if user_os == 'darwin':
-    path = 'file:///Users/' + user_name + '/Downloads/'
+    path = '/Users/' + user_name + '/Downloads/'
+    print path
 elif user_os[:3] == 'win':
     path = 'C:/Users/' + user_name + '/Downloads/'
 elif 'linux' in user_os:

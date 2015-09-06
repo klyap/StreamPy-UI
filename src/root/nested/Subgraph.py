@@ -1,7 +1,6 @@
 __author__ = 'klyap_000'
 import json
 from pprint import pprint
-from graph_to_program1 import *
 from example import *
 from MakeNetwork import *
 #from MakeNetworkParallel import *

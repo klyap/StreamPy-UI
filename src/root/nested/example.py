@@ -1,11 +1,9 @@
 '''
-Created on Jul 21, 2015
+Functions that handle renaming
 
-@author: klyap
 '''
 import json
 from pprint import pprint
-from graph_to_program1 import *
 import webbrowser
 import os
 #from root.nested.instances import instance_dict
@@ -27,17 +25,6 @@ def make_conn_dict(conn):
             conn_dict[src_name].append({'tgt': tgt_name , 'port': port_name})
      
     return conn_dict
-
-## Replace id with 0, 1, 2...
-def new_name(comp_list, i, id):
-    name = i
-    if name not in comp_list.keys():
-        return name
-    elif comp_list[i].index(id) > 0:
-        
-        name = i + str(comp_list[i].index(id))
-        return name
-    return name
 
 ## Dictionary of each component with it's input and output ports
 ## Ex. {process: {'in':[input_ports], 'out':[output_ports]}
@@ -85,135 +72,6 @@ def make_comps(data):
     return comps
 
 
-## (Not used anymore in favor of automatic execution/animation)
-def ex(json_file_name):
-    ## Open new file to write to
-    output_file_name = 'pstreams_output.py'
-    f = open(output_file_name, 'w')
-    
-    ## Import json file
-    with open(json_file_name) as data_file:    
-        data = json.load(data_file)
-
-    ## Get list of unique components
-    comps = make_comps(data)
-
-    
-    ## x is the length of the file name (aka the part we need to cut off)
-    #x = len(comps.keys()[0].encode('ascii','ignore').split('/')[0]) + 1
-
-    setup_template_file = open('setup_template_simple.txt', 'r')
-    setup_template = [line.rstrip('\n') for line in setup_template_file] # convert file to array of lines
-    
-    ## Write setup imports, etc to file
-    for line in setup_template:
-            f.write(line + '\n')
-            
-    ## Create a Python function for each module and write it to file
-    ## This is not used if we are importing functions that we already have
-    
-    #for c in comps:
-    #    func_name = c.encode('ascii','ignore')[x:]
-    #    
-    #    in_streams = ''
-    #    for ip in comps[c]['in']:
-    #        in_streams = ip.encode('ascii','ignore') + ', ' + in_streams
-    #    in_streams = in_streams[:-2]
-    #    
-    #    out_streams = ''
-    #    for op in comps[c]['out']:
-    #        out_streams = op.encode('ascii','ignore') + ', ' + out_streams
-    #    out_streams = out_streams[:-2]
-    #    
-        
-    #    for line in func_template:
-    #        if len(in_streams) == 0:
-    #            line = line.replace("IN_STREAM, OUT_STREAM", 'OUT_STREAM')
-    #        if len(out_streams) == 0:
-    #            line = line.replace("IN_STREAM, OUT_STREAM", 'IN_STREAM')
-    #        line = line.replace("MODULE_NAME", func_name)
-    #        line = line.replace("IN_STREAM", in_streams).replace("OUT_STREAM", out_streams)
-    #        line = line.replace("NUM_OUT", str(len(comps[c]['out'])))
-    #        f.write(line + '\n')
-            
-    ## For the "new_stream = func(input_stream, output_stream) set up
-    ## Not used in the "output_stream = func(input_stream)" set up
-    ## Create a PStreams Stream object from the names of each stream/edge in the graph
-    #for op in out_ports:
-    #    instance = op["process"].encode('ascii','ignore')[x:]
-    #    port = op["port"].encode('ascii','ignore')
-    #    stream_name = instance + '_' + port
-    #    f.write( stream_name + ' = Stream(\''+ stream_name + '\')\n')
-    
-    ## Create a PStreams Stream object from outputs of modules with no input (source module)
-    #for c in comps:
-    #    if len(comps[c]['in']) == 0:
-    #        for op in out_ports:
-    #            if op['process'].encode('ascii','ignore')[:-6] == c:
-    #                instance = op["process"].encode('ascii','ignore')[x:]
-    #                port = op["port"].encode('ascii','ignore')
-    #                stream_name = instance + '_' + port
-    #                f.write( stream_name + ' = Stream(\''+ stream_name + '\')\n')
-    
-    ## Call modules with names of their input and output ports
-    #for c in comps:
-    #    func_name = c.encode('ascii','ignore')[x:]
-    #    in_streams = ''
-    #    for ip in comps[c]['in']:
-    #        in_streams = '\'' + ip.encode('ascii','ignore') + '\', ' + in_streams
-    #    
-    #    out_streams = ''
-    #    for op in comps[c]['out']:
-    #        out_streams = '\'' + op.encode('ascii','ignore') + '\', ' + out_streams
-    #
-        #f.write(func_name + '_in_stream([' + in_streams + '],[' + out_streams + '])\n')
-    #    f.write(func_name + '([' + in_streams[:-2] + '],[' + out_streams[:-2] + '])\n')
-        
-    ## Make connections by calling modules with input and output streams
-    instances = data["processes"].keys()
-    #pprint(instances)
-    
-    #for i in instances:
-    #    func_name = i.encode('ascii','ignore')[x:-6]
-    #    in_streams = ''
-    #    out_streams = ''
-    #    for conn in data['connections']:
-    #        sp = conn['src']['process'].encode('ascii','ignore')
-    #        if sp == i:
-    #            out_streams = sp[x:] + '_' + conn['src']['port'].encode('ascii','ignore')+ ', ' +  out_streams 
-    #            
-    #        tp = conn['tgt']['process'].encode('ascii','ignore')
-    #        if tp == i:
-    #            in_streams = tp[x:] + '_' + conn['tgt']['port'].encode('ascii','ignore')+ ', ' +  in_streams
-                
-                
-    #    f.write(func_name + '_in_stream([' + in_streams[:-2] + '],[' + out_streams[:-2] + '])\n')
-    
-
-    ## Create dict of each module instance with it's in and out streams
-
-    
-    ## Write instance dict contents to file as a function call
-    #for i in instance_dict:
-    #    in_streams = ''
-    #    out_streams = ''
-    #    for each in instance_dict[i]['in']:
-    #        in_streams = each[x:] + ', ' + in_streams
-    #    for each in instance_dict[i]['out']:
-    #        out_streams = each[x:] + ', ' + out_streams
-    #    
-    #    f.write(i[x:-6] + '_in_stream([' + in_streams[:-2] + '],[' + out_streams[:-2] + '])\n')
-        
-    
-    instance_dict = make_instance_dict(data, instances)
-    #pprint(instance_dict)
-    instance_dict_copy, output_str = function_calls(instance_dict)
-    f.write(output_str)
-    
-    #execfile(output_file_name)
-    
-    return output_file_name
-
 ## Makes dict of each instance and its in and out ports
 def make_instance_dict(data, instances):
     instance_dict= {}
@@ -245,4 +103,100 @@ def make_instance_dict(data, instances):
             '''
             instance_dict[tp]['in'].append(sp +'_'+spp)
     return instance_dict
+
+
+## Convert string to the correct object type (int, float, string)
+def cast(s):
+    try:
+        int(s)
+        return float(s)
+    except ValueError:
+        try:
+            float(s)
+            return int(s)
+        except ValueError:
+            return str(s)
+        
+# Helper function to delete 'browser...'
+def delete_startswith_substring(s, substring):
+    if s.startswith(substring):
+        return s[len(substring):]
+    else:
+        return s
+    
+# Removes the random id at the end of the component name
+# Returns the clean name of the component and the id
+def clean_id(component):
+    
+    if '_' not in component:
+        return component, ''
+    
+    l_array = component.split('_')
+    l = len(l_array) - 1
+    cid = l_array[l]
+    label = str()
+    for i in range(0, l ):
+        label = label+ l_array[i] + '_'
+    label = label[:-1]
+    #label = component.replace(cid, '')[:-1]
+    
+    return label, cid
+
+def rename_stream(original_arr, comp_list):
+    renamed_arr = []
+    for i in original_arr:
+        #print('\n this is original arr: \n')
+        #pprint(original_arr)
+        #print('\n this is comp_list: \n')
+        #pprint(comp_list)
+        if '=' in i:
+            renamed_arr.append(i)
+        else:
+            label_with_id, portname = clean_id(i.split('/')[1])
+            #pprint(label_with_id)
+            #pprint(portname)
+            label, id = clean_id(label_with_id)
+            #pprint(comp_list)
+            #pprint(label)
+            #pprint(id)
+            if comp_list[label].index(id) == 0:
+                new_id = ''
+            else:
+                new_id = '_' + str(comp_list[label].index(id))
+            renamed_arr.\
+            append(label + new_id + '_PORT_' + portname)
+    return renamed_arr
+
+# comp_list will be a dictionary of each
+# module/function name and the id's
+# associated with each
+# The index of the id's will determine
+# which number 1, 2, 3... it will be
+# replaced by
+def make_comp_list(instance_dict):
+    comp_list = dict()
+    for component, connections in instance_dict.items():
+        # populating comp_list
+        label, cid = clean_id(component)
+        label = label.split('/')[1]
+        if label in comp_list.keys():
+            comp_list[label].append(cid)
+        else:
+            comp_list[label] = [cid]
+
+    return comp_list
+
+
+## Replace id with 0, 1, 2...
+def new_name(comp_list, i, id):
+    name = i
+    if name not in comp_list.keys():
+        return name
+    elif comp_list[i].index(id) > 0:
+        
+        name = i + str(comp_list[i].index(id))
+        return name
+    return name
+
+
 
