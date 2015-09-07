@@ -4,15 +4,14 @@ data structures from it, then calls the appropriate functions to
 process it.
 
 '''
+
 import sys
 import getpass
 
 from Subgraph import *
 from Multiprocessing import *
 
-
-def dispatch(json_file_name):
-    '''
+'''
     Looks at input JSON file and determines
     which functions should be called to
     process it.
@@ -26,7 +25,11 @@ def dispatch(json_file_name):
     -------
     None
 
-    '''
+'''
+
+
+def dispatch(json_file_name):
+
     # Convert JSON to my format
     agent_dict_json = make_json(json_file_name)
 
@@ -47,6 +50,7 @@ def dispatch(json_file_name):
         big_dict = parallel_dict(json_data)
         # Then execute using multiprocessing
         run_parallel(big_dict)
+
 
 ###################################################
 # If you're running from an IDE...
@@ -72,6 +76,7 @@ var7 = 'JSON/simplegroups.json'
 
 # UNCOMMENT the following 3 lines to be prompted
 # for a JSON file name at each run
+
 # var = raw_input("Please enter path of JSON: ")
 # var = str(var)
 # dispatch(var)
@@ -79,6 +84,7 @@ var7 = 'JSON/simplegroups.json'
 # UNCOMMENT the following line to run the same
 # file each run, replacing 'var1' with the
 # path to the file you want
+
 # dispatch(var1)
 
 ###################################################

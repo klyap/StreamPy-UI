@@ -1,3 +1,112 @@
+# from example.py
+
+'''
+rename_stream() replaces a component name
+with the random id with an integer (1, 2, 3,...)
+if there are multiple instances.
+
+Parameters
+----------
+instance_dict : dict
+    Component names with random id's paired with
+    dict of it's 'in' and 'out' ports
+
+Returns
+-------
+comp_list : dict
+    Plain component name paired with list of id's
+    associated with it
+
+'''
+
+def rename_stream(original_arr, comp_list):
+    renamed_arr = []
+    for i in original_arr:
+        if '=' in i:
+            # Then this is not a stream, but a data parameter
+            renamed_arr.append(i)
+        else:
+            label_with_id, portname = clean_id(i.split('/')[1])
+            label, id = clean_id(label_with_id)
+            if comp_list[label].index(id) == 0:
+                new_id = ''
+            else:
+                new_id = '_' + str(comp_list[label].index(id))
+            renamed_arr.\
+            append(label + new_id + '_PORT_' + portname)
+    return renamed_arr
+
+
+
+# Helper function to delete 'browser...'
+def delete_startswith_substring(s, substring):
+    if s.startswith(substring):
+        return s[len(substring):]
+    else:
+        return s
+
+def make_conn_dict(conn):
+    conn_dict = {}
+    for i in conn:
+        if 'src' in i.keys():
+            name = str(i['src']['process'])[x:]
+            conn_dict[name] = []
+
+    for i in conn:
+        if 'src' in i.keys():
+            src_name = str(i['src']['process'])[x:]
+            tgt_name = str(i['tgt']['process'])[x:]
+            port_name = str(i['src']['port'])
+            conn_dict[src_name].append({'tgt': tgt_name , 'port': port_name})
+
+    return conn_dict
+
+
+## Dictionary of each component with it's input and output ports
+## Ex. {process: {'in':[input_ports], 'out':[output_ports]}
+def make_comps(data):
+    # con_dict has the keys: src & tgt, vals: dict of process & port
+    conn_list = data["connections"]
+
+    ## Get list of unique output ports {port, process}
+    out_ports = []
+    for con_dict in conn_list:
+        if 'src' in con_dict.keys() and con_dict['src'] not in out_ports:
+            out_ports.append(con_dict['src'])
+
+
+    ## Get list of unique input ports {port, process}
+    in_ports = []
+    for con_dict in conn_list:
+        if con_dict['tgt'] not in in_ports:
+            in_ports.append(con_dict['tgt'])
+
+
+    ## Start constructing comps:
+    ## {process: {'in':[input_ports], 'out':[output_ports]}
+    comps = {}
+    comp_list = data["processes"]
+    for comp_dict in comp_list:
+        if comp_list[comp_dict]['component'] not in comps:
+            comps[comp_list[comp_dict]['component']] = {"in":[], "out":[]}
+
+    ## Assign output and input ports to each component in comps
+    for comp in comps:
+        for op in out_ports:
+            instance_name = op["process"].encode('ascii','ignore')    #name of module with ID
+            name = comp.encode('ascii','ignore')                      #name of module
+
+            if instance_name.find(name) == 0 and (op["port"] not in comps[comp]["out"]):
+                comps[comp]["out"].append(op["port"])
+
+        for ip in in_ports:
+            instance_name = ip["process"].encode('ascii','ignore')    #name of module with ID
+            name = comp.encode('ascii','ignore')                      #name of module
+
+            if instance_name.find(name) == 0 and (ip["port"] not in comps[comp]["in"]):
+                comps[comp]["in"].append(ip["port"])
+    return comps
+
 
 # From graph_to_program1.py
 

@@ -1,5 +1,5 @@
 '''
-Handle agent descriptor dict <--> JSON
+Handle JSON <--> agent descriptor dict -> Streams network
 '''
 
 from Stream import Stream
@@ -7,6 +7,7 @@ from Stream import _no_value, _multivalue
 from Agent import Agent
 from OperatorsTest import stream_agent
 
+import json
 from pprint import pprint
 from example import *
 from components_test import *
@@ -138,7 +139,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list):
 
     for stream in instance_dict:
         s_name, s_id = clean_id(stream.split('/')[1])
-        s_name = new_name(comp_list, s_name, s_id)
+        s_name = name_with_new_id(comp_list, s_name, s_id)
         dic[s_name] = [0, 0, 0, 0, 0, 0]
         json_dic[s_name] = []
         
@@ -160,7 +161,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list):
                 src_name_id, src_port = clean_id(i.split('/')[1])
                 src_name, src_id = clean_id(src_name_id)
                 
-                src_name = new_name(comp_list, src_name, src_id)
+                src_name = name_with_new_id(comp_list, src_name, src_id)
                 input.append(src_name + '_PORT_' + src_port)
                 
             else:
@@ -180,7 +181,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list):
             src_name_id, src_port = clean_id(i.split('/')[1])
             src_name, src_id = clean_id(src_name_id)
 
-            src_name = new_name(comp_list, src_name, src_id)
+            src_name = name_with_new_id(comp_list, src_name, src_id)
 
             output.append(src_name + '_PORT_' + src_port)
         
@@ -217,7 +218,7 @@ def make_stream_names_tuple(instance_dict, comp_list):
                 src_name_id, src_port = clean_id(i.split('/')[1])
                 src_name, src_id = clean_id(src_name_id)
     
-                src_name = new_name(comp_list, src_name, src_id)
+                src_name = name_with_new_id(comp_list, src_name, src_id)
     
                 s = src_name + '_PORT_' + src_port
                 if s not in stream_names_tuple:
@@ -229,7 +230,7 @@ def make_stream_names_tuple(instance_dict, comp_list):
             src_name_id, src_port = clean_id(i.split('/')[1])
             src_name, src_id = clean_id(src_name_id)
 
-            src_name = new_name(comp_list, src_name, src_id)
+            src_name = name_with_new_id(comp_list, src_name, src_id)
 
             s = src_name + '_PORT_' + src_port
 

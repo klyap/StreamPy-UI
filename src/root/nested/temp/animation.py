@@ -35,7 +35,7 @@ def make_js(conn, instance_dict, x):
     
     for i in comp_list.keys():
         for id in comp_list[i]:
-            name = new_name(comp_list, i, id)
+            name = name_with_new_id(comp_list, i, id)
         
             node_line = '\t{ data: { id: \''+ name + '\', name:\'' + name +\
                             ' ''\'} },\n'
@@ -46,13 +46,13 @@ def make_js(conn, instance_dict, x):
         #pprint(i)
         for tgt in conn_dict[i]:
             #t_arr = tgt.split('_')
-            #tgt = new_name(comp_list, str(tgt), t_arr[len(t_arr)-1])
+            #tgt = name_with_new_id(comp_list, str(tgt), t_arr[len(t_arr)-1])
             tgt_name, tgt_id = clean_id(tgt)
-            tgt_name = new_name(comp_list, tgt_name, tgt_id)
+            tgt_name = name_with_new_id(comp_list, tgt_name, tgt_id)
             #s_arr = i.split('_')
-            #src = new_name(comp_list, str(i), s_arr[len(s_arr)-1]) ##TO DO!! get id
+            #src = name_with_new_id(comp_list, str(i), s_arr[len(s_arr)-1]) ##TO DO!! get id
             src_name, src_id = clean_id(i)
-            src_name = new_name(comp_list, src_name, src_id)
+            src_name = name_with_new_id(comp_list, src_name, src_id)
             
             edge_line = '\t{ data: { source: \'' + src_name + '\', target: \'' +\
                         tgt_name +'\', name:\'' + 'stream_name: ' + 'value' + '\'} },\n'
@@ -93,7 +93,7 @@ def make_js_animate(conn, instance_dict, x):
     
     for i in comp_list.keys():
         for id in comp_list[i]:
-            name = new_name(comp_list, i, id)
+            name = name_with_new_id(comp_list, i, id)
         
             node_line = '\t{ data: { id: \''+ name + '\', name:\'' + name +\
                             ' ''\'} },\n'
@@ -105,11 +105,11 @@ def make_js_animate(conn, instance_dict, x):
         for s in conn_dict[i]:
             #Replace random id with 0, 1, 2...
             tgt_name, tgt_id = clean_id(s['tgt'])
-            tgt_name = new_name(comp_list, tgt_name, tgt_id)
+            tgt_name = name_with_new_id(comp_list, tgt_name, tgt_id)
             
             #Replace random id with 0, 1, 2...
             src_name, src_id = clean_id(i)
-            src_name = new_name(comp_list, src_name, src_id)
+            src_name = name_with_new_id(comp_list, src_name, src_id)
             
             #Get stream name: component_PORT_portname
             # 'x'* x is a placeholder because the rename() assumes that 

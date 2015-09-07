@@ -37,13 +37,7 @@ def make_json(json_file_name):
     if 'agent_descriptor_dict' not in json_data.keys():
         ## Make required data structs from Flowhub JSON
 
-        # comps is dict of processes with the names of their
-        # input and output ports as array values with keys 'inputs', 'outputs'
-        comps = make_comps(json_data)
 
-
-        # x is the length of the file name (aka the part we need to cut off)
-        x = len(comps.keys()[0].encode('ascii','ignore').split('/')[0]) + 1
 
         instances = json_data["processes"].keys()
         instance_dict = make_instance_dict(json_data, instances)
