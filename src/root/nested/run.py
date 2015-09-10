@@ -55,24 +55,21 @@ def dispatch(json_file_name):
 ###################################################
 # If you're running from an IDE...
 
-# Simple example
-var1 = 'JSON/SplitEvenOdd.json'
+# Simple example with parameter arguments
+var1 = 'JSON/multiplyparam.json'
 
 # Example of an input JSON file that is already in the
 # special agent descriptor dict format
-var4 = 'JSON/agent_descriptor.json'
+var2 = 'JSON/agent_descriptor.json'
 
-# Example using parameter arguments
-var5 = 'JSON/multiplyparam.json'
-
-# Nested subgraph example
-var6 = 'JSON/simplesubgraph.json'
+# Simple nested subgraph example
+var3 = 'JSON/simplesubgraph.json'
 
 # Graph with 3 nested subgraphs
-var9 = 'JSON/doublenested.json'
+var4 = 'JSON/doublenested.json'
 
-# Multiprocessing example. Doesn't work yet
-var7 = 'JSON/simplegroups.json'
+# Multiprocessing example. Doesn't work yet!!
+var5 = 'JSON/simplegroups.json'
 
 # UNCOMMENT the following 3 lines to be prompted
 # for a JSON file name at each run

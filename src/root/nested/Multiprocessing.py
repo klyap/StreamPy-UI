@@ -1,6 +1,10 @@
-__author__ = 'klyap_000'
+from copy import deepcopy
+from pprint import pprint
 
-## FOR MULTIPROCESSING
+from MakeParallelNetworkParallel import *
+# UNCOMMENT FOR PARALLELLLL and get bakc MakeParallelNet2
+# from MakeParallelNetwork import *
+
 
 # Make data structure for parallel processing
 # Key: name of group

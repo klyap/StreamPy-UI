@@ -9,7 +9,7 @@ from OperatorsTest import stream_agent
 
 import json
 from pprint import pprint
-from example import *
+from helper import *
 from components_test import *
 import re
 
