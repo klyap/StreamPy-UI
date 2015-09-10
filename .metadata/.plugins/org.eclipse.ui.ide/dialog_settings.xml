@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="installedFeatures">
+		<item value="AnyEditTools:2.4.13.201508181931"/>
+		<item value="org.eclipse.egit:4.0.1.201506240215-r"/>
+		<item value="org.eclipse.emf.common:2.11.0.v20150512-0501"/>
+		<item value="org.eclipse.emf.ecore:2.11.0.v20150512-0501"/>
+		<item value="org.eclipse.epp.mpc:1.4.0.v20150618-1659"/>
+		<item value="org.eclipse.help:2.1.0.v20150603-2000"/>
+		<item value="org.eclipse.jgit:4.0.1.201506240215-r"/>
+		<item value="org.eclipse.platform:4.5.0.v20150603-2358"/>
+		<item value="org.eclipse.rcp:4.5.0.v20150603-2331"/>
+		<item value="org.python.pydev.feature:4.3.0.201508181931"/>
+	</list>
+	<section name="ExternalProjectImportWizard">
+		<item value="true" key="WizardProjectsImportPage.STORE_NESTED_PROJECTS"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_COPY_PROJECT_ID"/>
+		<item value="false" key="WizardProjectsImportPage.STORE_ARCHIVE_SELECTED"/>
+		<list key="WizardProjectsImportPage.STORE_DIRECTORIES">
+			<item value="/Users/kerleeyap/Documents/PStreams-UI"/>
+		</list>
+		<list key="WizardProjectsImportPage.STORE_ARCHIVES">
+			<item value=""/>
+		</list>
+	</section>
+</section>
