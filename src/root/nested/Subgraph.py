@@ -12,19 +12,17 @@ from array import array
 from copy import deepcopy
 
 from MakeNetwork import *
-# from MakeNetworkParallel import *
-# import MakeParallelNetworkParallel
 from Animation import *
 from Stream import Stream, _no_value, _multivalue
 from Agent import Agent
-# from OperatorsTest import stream_agent
 from OperatorsTestParallel import stream_agent
 
-from components_test import *
+from components import *
 from helper import *
 
 
-'''
+def make_json(json_file_name):
+    '''
     Checks and converts input JSON file to a JSON file
     in my special format if it's not already
 
@@ -38,10 +36,7 @@ from helper import *
     my_json_file_name : str
         Path to converted JSON file
 
-'''
-
-
-def make_json(json_file_name):
+    '''
     # Import JSON file as JSON object
     with open(json_file_name) as data_file:
         json_data = json.load(data_file)
@@ -64,7 +59,8 @@ def make_json(json_file_name):
     return my_json_file_name
 
 
-'''
+def unwrap_subgraph(my_json_file_name):
+    '''
     Recursively exposes nested subgraphs to be executed for the animation.
 
     Parameters
@@ -78,10 +74,7 @@ def make_json(json_file_name):
         json_file.json is the name of the file with the
         fully exposed graph
 
-'''
-
-
-def unwrap_subgraph(my_json_file_name):
+    '''
 
     # Go through all functions/modules in json file and make sure they're in
     # components_test.py. Otherwise, there might be a subgraph.
@@ -89,16 +82,16 @@ def unwrap_subgraph(my_json_file_name):
     with open(my_json_file_name) as json_file_original:
         j = json.load(json_file_original)
 
-    # Make array of functions in components_test.py
+    # Make array of functions in components.py
     # (also includes elements like '__builtins__', '__doc__', '__file__')
-    comps_funcs = dir(components_test)
+    comps_funcs = dir(components)
 
     # Make array of functions/components in JSON
     JSON_funcs = []
     for i in j['agent_descriptor_dict'].keys():
         JSON_funcs.append(j['agent_descriptor_dict'][i][2])
 
-    # If there are functions in the graph not in components_test.py...
+    # If there are functions in the graph not in components.py...
     # they are most likely subgraphs, so collect them in 'unfound_comps'
     unfound_comps = []
     for f in JSON_funcs:
@@ -128,7 +121,9 @@ def unwrap_subgraph(my_json_file_name):
 
                 with open(new_json) as new_json_file:
                     subgraph_dict = json.load(new_json_file)
-
+                
+                print 'before anything:'
+                pprint(subgraph_dict['stream_names_tuple'])
                 # Pop agent_desc_dict entry of the current unfound component
                 # as 'unfound_entry'
                 unfound_entry = \
@@ -208,15 +203,18 @@ def unwrap_subgraph(my_json_file_name):
                                     clean_comp + \
                                     '_PORT_' + \
                                     element.split('_PORT_')[1]
-
+                                    
                         for c in subgraph_dict['stream_names_tuple']:
                             if c.split('_PORT_')[0] == comp:
                                 subgraph_dict['stream_names_tuple'].\
                                     append(clean_comp +
                                            '_PORT_' +
-                                           element.split('_PORT_')[1])
+                                           c.split('_PORT_')[1])
                                 subgraph_dict['stream_names_tuple'].remove(c)
-
+                        
+                        print 'after renaming stream names tuple:'
+                        pprint(subgraph_dict['stream_names_tuple'])
+                        
                 # Insert new, renamed unwrapped components into 'new_dict'
                 for comp in subgraph_dict['agent_descriptor_dict'].keys():
                     new_dict['agent_descriptor_dict'][comp] = \
@@ -257,8 +255,10 @@ def unwrap_subgraph(my_json_file_name):
                     # Assign o to comp_name in agent_desc_dict
                     comp_name = o.split('_PORT_')[0]
                     new_dict['agent_descriptor_dict'][comp_name][1].append(o)
-
+                
                 # FOR 'STREAM_NAMES_TUPLE':
+                print 'about to add this into new dict'
+                pprint(subgraph_dict['stream_names_tuple'])
                 # Add in internal/hidden streams
                 for s in subgraph_dict['stream_names_tuple']:
                     new_dict['stream_names_tuple'].append(s)
@@ -289,6 +289,10 @@ def unwrap_subgraph(my_json_file_name):
         json_file = open('json_file.json', 'w')
         json.dump(new_dict, json_file)
         json_file.close()
+        print '-----SUBGRAPH----'
+        pprint(subgraph_dict)
+        print '-----DICT--------'
+        pprint(new_dict)
         return unwrap_subgraph('json_file.json')
     else:
         # All functions found and unwrapped!

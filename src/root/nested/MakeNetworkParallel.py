@@ -3,7 +3,7 @@ from Stream import _no_value, _multivalue
 from Agent import Agent
 #from OperatorsTestParallel import stream_agent
 import OperatorsTestParallel
-from OperatorsTest import stream_agent
+from Operators import stream_agent
 import OperatorsTestParallel
 
 def make_network(stream_names_tuple, agent_descriptor_dict):

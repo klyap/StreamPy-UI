@@ -1,7 +1,7 @@
 from Stream import Stream
 from Stream import _no_value, _multivalue
 from Agent import Agent
-from OperatorsTest import stream_agent
+from Operators import stream_agent
 from MakeNetworkNew import make_network, network_data_structures
 from multiprocessing import Process, Queue
 

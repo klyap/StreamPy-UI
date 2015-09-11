@@ -1,43 +1,21 @@
 {
 "agent_descriptor_dict":
 {
-    "generate_stream_of_random_integers": [
+    "multiply_elements_stream": [
         [],
         [
-            "generate_stream_of_random_integers_PORT_out"
-        ],
-        "generate_of_random_integers",
-        "element",
-        null,
-        "None"
-    ],
-    "multiply_elements_stream": [
-        [
-            "generate_stream_of_random_integers_PORT_out"
-        ],
-        [
-            "multiply_elements_stream_PORT_product"
+            "multiply_elements_stream_PORT_out"
         ],
         "multiply_elements",
         "element",
         [
-            2.0
+            1.0
         ],
-        "None"
+        null
     ],
     "print_value_stream": [
         [
-            "generate_stream_of_random_integers_PORT_out"
-        ],
-        [],
-        "print_value",
-        "element",
-        null,
-        0.0
-    ],
-    "print_value_stream1": [
-        [
-            "multiply_elements_stream_PORT_product"
+            "multiply_elements_stream_PORT_out"
         ],
         [],
         "print_value",
@@ -48,11 +26,10 @@
 },
 "stream_names_tuple":
 [
-    "generate_stream_of_random_integers_PORT_out",
-    "multiply_elements_stream_PORT_product"
+    "multiply_elements_stream_PORT_out"
 ],
 "inports":
-{},
+{"multiply_elements_stream_in": "multiply_elements_stream_PORT_in"},
 "outports":
 {}
 }

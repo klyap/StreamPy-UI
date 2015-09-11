@@ -1,6 +1,3 @@
-# Most recent version that Mani uploaded, with minor changes in
-# h_agent() and h()
-
 """This module has functions that convert operations on standard Python data structures
 to operations on streams.
 

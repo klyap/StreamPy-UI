@@ -11,7 +11,9 @@ import getpass
 from Subgraph import *
 from Multiprocessing import *
 
-'''
+
+def dispatch(json_file_name):
+    '''
     Looks at input JSON file and determines
     which functions should be called to
     process it.
@@ -25,10 +27,7 @@ from Multiprocessing import *
     -------
     None
 
-'''
-
-
-def dispatch(json_file_name):
+    '''
 
     # Convert JSON to my format
     agent_dict_json = make_json(json_file_name)

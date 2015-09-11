@@ -20,26 +20,10 @@ nested.Animation module
     :undoc-members:
     :show-inheritance:
 
-nested.MakeNetwork(1) module
-----------------------------
-
-.. automodule:: nested.MakeNetwork(1)
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 nested.MakeNetwork module
 -------------------------
 
 .. automodule:: nested.MakeNetwork
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.MakeNetworkNew module
-----------------------------
-
-.. automodule:: nested.MakeNetworkNew
     :members:
     :undoc-members:
     :show-inheritance:
@@ -92,14 +76,6 @@ nested.Operators module
     :undoc-members:
     :show-inheritance:
 
-nested.OperatorsTest module
----------------------------
-
-.. automodule:: nested.OperatorsTest
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 nested.OperatorsTestParallel module
 -----------------------------------
 
@@ -112,14 +88,6 @@ nested.Stream module
 --------------------
 
 .. automodule:: nested.Stream
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.Stream_Learn module
---------------------------
-
-.. automodule:: nested.Stream_Learn
     :members:
     :undoc-members:
     :show-inheritance:
@@ -148,50 +116,10 @@ nested.components module
     :undoc-members:
     :show-inheritance:
 
-nested.components_test module
------------------------------
+nested.helper module
+--------------------
 
-.. automodule:: nested.components_test
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.example module
----------------------
-
-.. automodule:: nested.example
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.example_agent_op module
-------------------------------
-
-.. automodule:: nested.example_agent_op
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.graph_to_program module
-------------------------------
-
-.. automodule:: nested.graph_to_program
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.graph_to_program1 module
--------------------------------
-
-.. automodule:: nested.graph_to_program1
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.instances module
------------------------
-
-.. automodule:: nested.instances
+.. automodule:: nested.helper
     :members:
     :undoc-members:
     :show-inheritance:
@@ -204,26 +132,10 @@ nested.kerlee_parallel module
     :undoc-members:
     :show-inheritance:
 
-nested.pstreams_output module
------------------------------
-
-.. automodule:: nested.pstreams_output
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 nested.run module
 -----------------
 
 .. automodule:: nested.run
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-nested.test_simple module
--------------------------
-
-.. automodule:: nested.test_simple
     :members:
     :undoc-members:
     :show-inheritance:

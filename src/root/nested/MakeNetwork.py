@@ -2,16 +2,17 @@
 Handle JSON <--> agent descriptor dict -> Streams network
 '''
 
+import re
+import json
+from pprint import pprint
+
 from Stream import Stream
 from Stream import _no_value, _multivalue
 from Agent import Agent
-from OperatorsTest import stream_agent
+from Operators import stream_agent
 
-import json
-from pprint import pprint
 from helper import *
-from components_test import *
-import re
+from components import *
 
 
 def make_network(stream_names_tuple, agent_descriptor_dict):
@@ -70,21 +71,11 @@ def make_network(stream_names_tuple, agent_descriptor_dict):
         print 'agent_name:', agent_name
         in_list, out_list, f, f_type, f_args, state, call_streams = \
           agent_descriptor_dict[agent_name]
-        
-        ## # Only for debugging
-        ## print 'in_list', in_list
-        ## print 'out_list', out_list
-        ## print 'f', f
-        ## print 'f_args', f_args
-        ## print 'f_type', f_type
-        ## print 'state', state
 
         # Replace a list consisting of a single input stream
         # by the stream itself.
         if len(in_list) == 1:
             single_input_stream_name = in_list[0]
-            #print 'stream dict is:'
-            #pprint(stream_dict)
             inputs = stream_dict[single_input_stream_name]
         else:
             inputs = list()
@@ -104,9 +95,8 @@ def make_network(stream_names_tuple, agent_descriptor_dict):
         # Create timer streams and insert them into agent_timer_dict 
         agent_timer_dict[agent_name] = Stream(
             agent_name + ':timer')
-        #print agent_timer_dict
-        
-        ## Create agents and insert them into agent_dict
+
+        # Create agents and insert them into agent_dict
         agent_dict[agent_name] = stream_agent(
             inputs, outputs, f_type, f, f_args, state,
             call_streams=[agent_timer_dict[agent_name]])
@@ -117,11 +107,11 @@ def make_network(stream_names_tuple, agent_descriptor_dict):
     return (stream_dict, agent_dict, agent_timer_dict)
 
 
-## This goes from Flowhub's JSON to our JSON    
+# This goes from Flowhub's JSON to our JSON    
 # key: agent name
 # value: list of input streams, list of output streams, function, function type,
 #        tuple of arguments, state
-#Eg. 'generate_random': [
+# Eg. 'generate_random': [
 #            [], ['random_stream'], rand, 'element', (100,), None],
 def make_agent_descriptor_dict(instance_dict, comp_list):
     dic = {}
@@ -223,7 +213,8 @@ def make_stream_names_tuple(instance_dict, comp_list):
                 s = src_name + '_PORT_' + src_port
                 if s not in stream_names_tuple:
                     stream_names_tuple = stream_names_tuple + (s,)
-
+                print 's is: '
+                pprint(stream_names_tuple)
         for i in instance_dict[comp]['out']:
 
             #Replace random id with 0, 1, 2...
@@ -236,18 +227,18 @@ def make_stream_names_tuple(instance_dict, comp_list):
 
             if s not in stream_names_tuple:
                 stream_names_tuple = stream_names_tuple + (s,)
-
+    pprint(stream_names_tuple)
     stream_names_tuple_json = json.dumps(stream_names_tuple, sort_keys=True, 
                               indent=4, separators=(',', ': '))
     return stream_names_tuple_json
 
-## Grab JSON in my special format and turn into dict to execute
+# Grab JSON in my special format and turn into dict to execute
 def JSON_to_descriptor_dict_and_stream_names(my_json_file_name):
-    ## Import json file
+    # Import json file
     with open(my_json_file_name) as data_file:    
         json_data = json.load(data_file)
     
-    ## Convert str to objects
+    # Convert str to objects
     agent_descriptor_dict = json_data['agent_descriptor_dict']
     copy = json_data['agent_descriptor_dict']
     
@@ -368,7 +359,8 @@ def make_my_JSON(instance_dict, comp_list, json_data):
     
     f.write('\"stream_names_tuple\":\n')
     f.write(stream_names_tuple)
-
+    print 'stream_names_tuple wrote:'
+    pprint(stream_names_tuple)
     
     if groups:
         f.write(',\n')

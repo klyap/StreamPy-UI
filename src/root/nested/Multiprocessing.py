@@ -2,7 +2,7 @@ from copy import deepcopy
 from pprint import pprint
 
 from MakeParallelNetworkParallel import *
-# UNCOMMENT FOR PARALLELLLL and get bakc MakeParallelNet2
+# UNCOMMENT FOR PARALLELLLL and get back MakeParallelNet2
 # from MakeParallelNetwork import *
 
 

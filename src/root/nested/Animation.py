@@ -1,3 +1,15 @@
+'''
+Using a JSON file in my special format,
+this module generates the Javascript data structures
+for the animation:
+
+1. The graph
+    ie. how are the nodes/edges arranged?
+2. The animation sequence
+    ie. which values are at each edge at each time step
+
+'''
+
 import json
 from pprint import pprint
 import os
@@ -9,38 +21,37 @@ from Agent import Agent
 
 from helper import *
 from MakeNetwork import *
-import components_test
-from components_test import *
-
-
-'''
-Returns the 2 strings whose values are
-the edge and node arrays for the JS file
-
-Parameters
-----------
-agent_descriptor_dict : dict
-    Dict form of JSON in our special format.
-    Component names paired with the associated:
-         in streams, out streams, function,
-         parameters, type, state
-
-stream_names_tuple : list
-    List of all stream names.
-
-Returns
--------
-nodes : str
-    String representation of the 'nodes' array for Cytoscape JS
-    to create a graph
-
-edges : str
-    String representation of the 'edges' array for Cytoscape JS
-    to create a graph
-'''
+import components
+from components import *
 
 
 def make_graph(agent_descriptor_dict, stream_names_tuple):
+    '''
+    Returns the 2 strings whose values are
+    the edge and node arrays for the JS file
+
+    Parameters
+    ----------
+    agent_descriptor_dict : dict
+        Dict form of JSON in our special format.
+        Component names paired with the associated:
+             in streams, out streams, function,
+             parameters, type, state
+
+    stream_names_tuple : list
+        List of all stream names.
+
+    Returns
+    -------
+    nodes : str
+        String representation of the 'nodes' array for Cytoscape JS
+        to create a graph
+
+    edges : str
+        String representation of the 'edges' array for Cytoscape JS
+        to create a graph
+    '''
+
     nodes = 'nodes: [\n'
     edges = 'edges: [\n'
 
@@ -78,38 +89,35 @@ def make_graph(agent_descriptor_dict, stream_names_tuple):
     return nodes, edges
 
 
-'''
-Executes graph. All components are fired at every time step
-and value/edge pairs are stored and returned
-to populate the JS file.
-
-Parameters
-----------
-agent_descriptor_dict : dict
-    Dict form of JSON in our special format.
-    Component names paired with the associated:
-         in streams, out streams, function,
-         parameters, type, state
-
-stream_names_tuple : list
-    List of all stream names.
-
-Returns
--------
-stream_str + '\n' +  selector_str + '\n' + val_str : str
-    String representation of 3 JS arrays of
-    (# of time steps) * (# of streams) elements,
-    where elements at each index correspond to each other
-
-    'stream_str': 'stream_name' array with names of all streams
-    'selector_str': 'edge' array is 'stream_name' array but
-                    formatted as Cytoscape edge selectors
-    'val_str': 'value' array with stream values
-'''
-
-
 def make_seq(agent_descriptor_dict, stream_names_tuple):
+    '''
+    Executes graph. All components are fired at every time step
+    and value/edge pairs are stored and returned
+    to populate the JS file.
 
+    Parameters
+    ----------
+    agent_descriptor_dict : dict
+        Dict form of JSON in our special format.
+        Component names paired with the associated:
+             in streams, out streams, function,
+             parameters, type, state
+
+    stream_names_tuple : list
+        List of all stream names.
+
+    Returns
+    -------
+    stream_str + '\n' +  selector_str + '\n' + val_str : str
+        String representation of 3 JS arrays of
+        (# of time steps) * (# of streams) elements,
+        where elements at each index correspond to each other
+
+        'stream_str': 'stream_name' array with names of all streams
+        'selector_str': 'edge' array is 'stream_name' array but
+                        formatted as Cytoscape edge selectors
+        'val_str': 'value' array with stream values
+    '''
     # Make the network
     stream_dict, agent_dict, t_dict = make_network(
         stream_names_tuple, agent_descriptor_dict)
@@ -170,26 +178,24 @@ def make_seq(agent_descriptor_dict, stream_names_tuple):
     return stream_str + '\n' + selector_str + '\n' + val_str
 
 
-'''
-Using a JSON file of my format, generate Javascript text
-the fills in a template .js file with:
-    graph configuration (draws the graph)
-    animation sequence (animates graph)
-Opens default browser to display animation.
-
-Parameters
-----------
-json_file : json
-    JSON file object of a JSON in my special format
-
-Returns
--------
-None
-
-'''
-
-
 def make_js(json_file):
+    '''
+    Using a JSON file of my format, generate Javascript text
+    the fills in a template .js file with:
+        graph configuration (draws the graph)
+        animation sequence (animates graph)
+    Opens default browser to display animation.
+
+    Parameters
+    ----------
+    json_file : json
+        JSON file object of a JSON in my special format
+
+    Returns
+    -------
+    None
+
+    '''
     # Make agent_descriptor_dict, stream_names_tuple
     agent_descriptor_dict, stream_names_tuple =\
         JSON_to_descriptor_dict_and_stream_names(json_file)
@@ -210,6 +216,5 @@ def make_js(json_file):
         line = line.replace('SEQUENCE', seq)
         f.write(line)
 
-    # TODO: Rename to renamed cytoscape html folder
     url = os.path.abspath("web/main.html")
     webbrowser.open(url, new=2)
