@@ -6,9 +6,50 @@ Include your own functions here.
 '''
 
 from random import randint
+import matplotlib.pyplot as plt
 
 from Stream import _no_value
+from multiprocessing.managers import State
 
+# Tutorial
+def consecutive_ints(state):
+    #return randint(0, 9)
+    print 'received: ' + str(state)
+    if state == None:
+        state = 0
+    state = state + 1
+    return state
+
+def show(curr_num, stop_num):
+    print str(curr_num) + ' is not ' + str(stop_num)
+    if curr_num == int(stop_num[0]):
+        #plt.axes()
+        plt.xticks(())
+        plt.yticks(())
+        plt.axis('scaled')
+        plt.show()
+
+def make_circles(curr_num):
+    #j = curr_num * 0.1
+    j = randint(0, 9) * 0.1
+    k = randint(0, 9) * 0.1
+    circle = plt.Circle((j , k), radius=.1, fc='y')
+    plt.gca().add_patch(circle)
+    
+def make_rectangles(curr_num):
+    #j = curr_num * 0.1
+    j = randint(0, 9) * 0.1
+    k = randint(0, 9) * 0.1
+    rectangle = plt.Rectangle((j, k), .05, .1, fc='r')
+    plt.gca().add_patch(rectangle)
+    
+def make_triangles(curr_num):
+    j = randint(0, 9) * 0.1
+    k = randint(0, 9) * 0.1
+    points = [[1 * j, 1 * k], [0.05 + j, 0.05 + k], [j, 0.08 + k]]
+    polygon = plt.Polygon(points, fill='b')
+    plt.gca().add_patch(polygon)
+# End tutorial
 
 def generate_of_random_integers(f_args=(100,)):
     '''

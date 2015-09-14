@@ -123,8 +123,11 @@ def make_agent_descriptor_dict(instance_dict, comp_list):
               'print_value': print_value, 
               'multiply_elements': multiply_elements,
               'split': split,
-              #'stream_learn': stream_learn,
-              #'get_data': get_data
+              'make_rectangles': make_rectangles,
+              'make_circles': make_circles,
+              'make_triangles': make_triangles,
+              'consecutive_ints': consecutive_ints,
+              'show': show
               }
 
     for stream in instance_dict:
@@ -185,8 +188,9 @@ def make_agent_descriptor_dict(instance_dict, comp_list):
         dic[s_name][3] = type
         dic[s_name][4] = param
         dic[s_name][5] = state
-                
+
         json_dic[s_name] = [input, output, func, type, param, state]
+        pprint(json_dic)
     
     json_dic = json.dumps(json_dic, sort_keys=True, 
                               indent=4, separators=(',', ': '))    
@@ -244,13 +248,16 @@ def JSON_to_descriptor_dict_and_stream_names(my_json_file_name):
     
     # TODO: find a better way to do this
     # Currently a hard-coded string-to-function_object dict 
-    f_dict = {'generate_of_random_integers': generate_of_random_integers, 
+    f_dict = f_dict = {'generate_of_random_integers': generate_of_random_integers, 
               'split_into_even_odd': split_into_even_odd, 
               'print_value': print_value, 
               'multiply_elements': multiply_elements,
               'split': split,
-              #'stream_learn': stream_learn,
-              #'get_data': get_data
+              'make_rectangles': make_rectangles,
+              'make_circles': make_circles,
+              'make_triangles': make_triangles,
+              'consecutive_ints': consecutive_ints,
+              'show': show
               }
     
     for agent in agent_descriptor_dict:

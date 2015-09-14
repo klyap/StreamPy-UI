@@ -638,12 +638,12 @@ def op(f_type, f, in_stream, state, call_streams, window_size, step_size):
 def op_agent(f_type, f, f_args, in_stream, out_stream,
              state, call_streams, window_size, step_size):
     def g(x, state=None):
-         if not f_args:
+        if not f_args:
             if state is None: return [f(x[0])]
             else:
                 output, new_state = f(x[0], state)
                 return ([output], new_state)
-         else:
+        else:
             if state is None: return [f(x[0], f_args)]
             else:
                 output, new_state = f(x[0], state, f_args)
@@ -669,20 +669,26 @@ def single_output_source_agent(
         f_type, f, f_args, out_stream, state, call_streams,
         window_size, step_size):
 
-    def g(state=None):
+    def g():
         if not f_args:
-            if state is None: return [f()]
-            else: return [f(state)]
+            if state is None:
+                'state is NONE'
+                return [f()]
+            else:
+                print 'state is ' + str(state)
+                val = f(state)
+                print 'val is ' + str(val)
+                return [val]
         else:
+            print 'state is ' + str(state)
             if state is None: return [f(f_args)]
-            else: return [f(state, f_args)]
-            
+            else:
+                print 'state is ' + str(state)
+                return [f(state, f_args)]
 
     return h_agent(
         f_type, g, [], [out_stream],
         state, call_streams, window_size, step_size)
-
-
 
 def many_outputs_source(f_type, f, num_outputs, state, call_streams,
                         window_size, step_size):
