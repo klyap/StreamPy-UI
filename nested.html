@@ -8,8 +8,8 @@
     
     <title>nested package &mdash; StreamsPy UI 1.0 documentation</title>
     
-    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="static/pygments.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
@@ -20,9 +20,9 @@
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="static/jquery.js"></script>
+    <script type="text/javascript" src="static/underscore.js"></script>
+    <script type="text/javascript" src="static/doctools.js"></script>
     <link rel="top" title="StreamsPy UI 1.0 documentation" href="index.html" />
    
   
@@ -348,192 +348,6 @@ agent is made to execute a step.</dd>
 <code class="descclassname">nested.MakeNetwork.</code><code class="descname">make_stream_names_tuple</code><span class="sig-paren">(</span><em>instance_dict</em>, <em>comp_list</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeNetwork.make_stream_names_tuple" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</div>
-<div class="section" id="module-nested.MakeNetworkParallel">
-<span id="nested-makenetworkparallel-module"></span><h2>nested.MakeNetworkParallel module<a class="headerlink" href="#module-nested.MakeNetworkParallel" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="nested.MakeNetworkParallel.main">
-<code class="descclassname">nested.MakeNetworkParallel.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeNetworkParallel.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeNetworkParallel.make_network">
-<code class="descclassname">nested.MakeNetworkParallel.</code><code class="descname">make_network</code><span class="sig-paren">(</span><em>stream_names_tuple</em>, <em>agent_descriptor_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeNetworkParallel.make_network" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function makes a network of agents given the names
-of the streams in the network and a description of the
-agents in the network.</p>
-<dl class="docutils">
-<dt>stream_names_tuple: tuple of str</dt>
-<dd>A tuple consisting of names of streams in the network.
-Each stream in the network must have a unique name.</dd>
-<dt>agent_descriptor_dict: dict of tuples</dt>
-<dd><p class="first">The key is an agent name
-The value is a tuple:</p>
-<blockquote class="last">
-<div><p>in_list, out_list, f, f_type, f_args, state,
-call_streams
-where:</p>
-<blockquote>
-<div>in_list: list of input stream names
-out_list: list of output stream names
-f: function associated with the agent
-f_type: &#8216;element&#8217;, &#8216;list&#8217;, &#8216;window&#8217;, etc
-f_args: tuple of arguments for functions f
-state: the state associated with this agent
-call_streams: list of names of call streams.</div></blockquote>
-</div></blockquote>
-</dd>
-</dl>
-<dl class="docutils">
-<dt>stream_dict: dict</dt>
-<dd>key: stream name
-value: Stream</dd>
-<dt>agent_dict: dict</dt>
-<dd><p class="first">key: agent name
-value: agent with the specified description:</p>
-<blockquote class="last">
-<div>in_list, out_list, f, f_type, f_args, state,
-call_streams=[timer_stream]
-where one timer stream is associated with
-each agent.</div></blockquote>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeNetworkParallel.make_timer_streams_for_network">
-<code class="descclassname">nested.MakeNetworkParallel.</code><code class="descname">make_timer_streams_for_network</code><span class="sig-paren">(</span><em>agent_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeNetworkParallel.make_timer_streams_for_network" title="Permalink to this definition">¶</a></dt>
-<dd><p>agent_timer_dict, a dict where
-key: agent_name
-value: a stream (note a stream and not a name)</p>
-<blockquote>
-<div>This stream is a call stream of the agent
-with the specified name (the key). Usually,
-timing messages are sent on this stream.
-The agent takes a step when it receives a
-message on this stream.</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeNetworkParallel.network_data_structures">
-<code class="descclassname">nested.MakeNetworkParallel.</code><code class="descname">network_data_structures</code><span class="sig-paren">(</span><em>stream_names_tuple</em>, <em>agent_descriptor_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeNetworkParallel.network_data_structures" title="Permalink to this definition">¶</a></dt>
-<dd><p>Builds data structures for the network. These data
-structures are helpful for animating the network and
-for building networks of processes.</p>
-<blockquote>
-<div>Same as for make_network.</div></blockquote>
-<blockquote>
-<div><p>(stream_to_agent_list_dict,
-agent_to_stream_dict,
-agent_to_agent_list_dict)</p>
-<dl class="docutils">
-<dt>stream_to_agent_list_dict</dt>
-<dd>key: stream_name
-value: list of agent_name.
-The stream with name stream_name (the key)
-is an input stream of each agent
-whose name is in the list (the value).
-For example if key is &#8216;s&#8217; and value is
-[&#8216;u&#8217;, &#8216;v&#8217;, &#8216;w&#8217;] then the stream with name &#8216;s&#8217;
-is an input stream of the agents with names
-&#8216;u&#8217;, &#8216;v&#8217;, and &#8216;w&#8217;.</dd>
-<dt>agent_to_stream_dict</dt>
-<dd>key: stream_name
-value: str. A single agent_name.
-The stream with name stream_name (the key)
-is the unique output stream of the agent
-with name agent_name (the value). For example,
-if a key is &#8216;s&#8217; and the corresponding value
-is &#8216;a&#8217;, then the stream with name &#8216;s&#8217; is
-generated by the agent with name &#8216;a&#8217;.</dd>
-<dt>agent_to_agent_list_dict</dt>
-<dd>key: agent_name
-value: list of agent names
-The agent with name agent_name (the key) has an
-output stream to each agent whose name is in value.</dd>
-<dt>agent_from_agent_list_dict</dt>
-<dd>key: agent_name
-value: list of agent names
-The agent with name agent_name (the key) has an
-input stream from each agent whose name is in value.</dd>
-</dl>
-</div></blockquote>
-</dd></dl>
-
-</div>
-<div class="section" id="module-nested.MakeParallelNetwork">
-<span id="nested-makeparallelnetwork-module"></span><h2>nested.MakeParallelNetwork module<a class="headerlink" href="#module-nested.MakeParallelNetwork" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="nested.MakeParallelNetwork.main">
-<code class="descclassname">nested.MakeParallelNetwork.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetwork.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeParallelNetwork.make_input_manager">
-<code class="descclassname">nested.MakeParallelNetwork.</code><code class="descname">make_input_manager</code><span class="sig-paren">(</span><em>input_queue</em>, <em>input_stream_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetwork.make_input_manager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make an object that waits continuously for a
-message on input_queue and then sends the message
-on the stream with the specified name.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeParallelNetwork.make_output_manager">
-<code class="descclassname">nested.MakeParallelNetwork.</code><code class="descname">make_output_manager</code><span class="sig-paren">(</span><em>stream_dict</em>, <em>output_stream_names_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetwork.make_output_manager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeParallelNetwork.make_process">
-<code class="descclassname">nested.MakeParallelNetwork.</code><code class="descname">make_process</code><span class="sig-paren">(</span><em>input_queue</em>, <em>all_stream_names_tuple</em>, <em>input_stream_names_tuple</em>, <em>output_stream_names_dict</em>, <em>agent_descriptor_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetwork.make_process" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="nested-makeparallelnetwork2-module">
-<h2>nested.MakeParallelNetwork2 module<a class="headerlink" href="#nested-makeparallelnetwork2-module" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="module-nested.MakeParallelNetworkParallel">
-<span id="nested-makeparallelnetworkparallel-module"></span><h2>nested.MakeParallelNetworkParallel module<a class="headerlink" href="#module-nested.MakeParallelNetworkParallel" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="nested.MakeParallelNetworkParallel.main">
-<code class="descclassname">nested.MakeParallelNetworkParallel.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetworkParallel.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeParallelNetworkParallel.make_input_manager">
-<code class="descclassname">nested.MakeParallelNetworkParallel.</code><code class="descname">make_input_manager</code><span class="sig-paren">(</span><em>input_queue</em>, <em>input_stream_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetworkParallel.make_input_manager" title="Permalink to this definition">¶</a></dt>
-<dd><p>Make an object that waits continuously for a
-message on input_queue and then sends the message
-on the stream with the specified name.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeParallelNetworkParallel.make_output_manager">
-<code class="descclassname">nested.MakeParallelNetworkParallel.</code><code class="descname">make_output_manager</code><span class="sig-paren">(</span><em>stream_dict</em>, <em>output_stream_names_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetworkParallel.make_output_manager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.MakeParallelNetworkParallel.make_process">
-<code class="descclassname">nested.MakeParallelNetworkParallel.</code><code class="descname">make_process</code><span class="sig-paren">(</span><em>input_queue</em>, <em>all_stream_names_tuple</em>, <em>input_stream_names_tuple</em>, <em>output_stream_names_dict</em>, <em>agent_descriptor_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.MakeParallelNetworkParallel.make_process" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-<div class="section" id="module-nested.Multiprocessing">
-<span id="nested-multiprocessing-module"></span><h2>nested.Multiprocessing module<a class="headerlink" href="#module-nested.Multiprocessing" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="nested.Multiprocessing.output_stream_names_tuple_to_dict">
-<code class="descclassname">nested.Multiprocessing.</code><code class="descname">output_stream_names_tuple_to_dict</code><span class="sig-paren">(</span><em>big_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.Multiprocessing.output_stream_names_tuple_to_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.Multiprocessing.parallel_dict">
-<code class="descclassname">nested.Multiprocessing.</code><code class="descname">parallel_dict</code><span class="sig-paren">(</span><em>json_data</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.Multiprocessing.parallel_dict" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.Multiprocessing.run_parallel">
-<code class="descclassname">nested.Multiprocessing.</code><code class="descname">run_parallel</code><span class="sig-paren">(</span><em>big_dict</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.Multiprocessing.run_parallel" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-nested.Operators">
 <span id="nested-operators-module"></span><h2>nested.Operators module<a class="headerlink" href="#module-nested.Operators" title="Permalink to this headline">¶</a></h2>
 <p>This module has functions that convert operations on standard Python data structures
@@ -864,341 +678,8 @@ stream_func returns the output streams.</dd>
 <dd></dd></dl>
 
 </div>
-<div class="section" id="module-nested.OperatorsTestParallel">
-<span id="nested-operatorstestparallel-module"></span><h2>nested.OperatorsTestParallel module<a class="headerlink" href="#module-nested.OperatorsTestParallel" title="Permalink to this headline">¶</a></h2>
-<p>This module has functions that convert operations on standard Python data structures
-to operations on streams.</p>
-<p>The module has three collections of functions:
-(1) functions that convert operations on standard Python data structures
-to operations on streams. These functions operate on a list of input
-streams to generate a list of output streams. The functions deal with
-the following data structures: lists, elements of lists, (moving)
-windows, and timed windows.
-(2) functions that map the general case of multiple input streams and
-multiple output streams described above to the following special cases:</p>
-<blockquote>
-<div><ol class="loweralpha simple">
-<li>merge: an arbitrary number of input streams and a single output stream.</li>
-<li>split: a single input stream and an arbitrary number of output streams.</li>
-<li>op: a single input stream and a single output stream.</li>
-<li>source: no input and an arbitrary number of output streams.</li>
-</ol>
-<p>(e) sink: no ouput and an arbitrary number of input streams.
-These special cases simplify that functions that need to be written
-for standard Python data structures. You can always use the arbitrary
-number of inputs and outputs case even if there is only one or zero input
-or output streams. The functions for merge, split, op, source, and sink
-are simpler than the general case; so use them, where appropriate.</p>
-</div></blockquote>
-<p>(3) a function that provides a single common signature for converting
-operations on Python structures to operations on streams regardless of
-whether the function has no inputs, a single input stream, a list of
-input streams, or no outputs, a single output stream or a list of output
-streams.</p>
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.assert_is_list">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">assert_is_list</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.assert_is_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.assert_is_list_of_lists">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">assert_is_list_of_lists</code><span class="sig-paren">(</span><em>x</em>, <em>list_size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.assert_is_list_of_lists" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.assert_is_list_of_streams">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">assert_is_list_of_streams</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.assert_is_list_of_streams" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.assert_is_list_of_streams_or_None">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">assert_is_list_of_streams_or_None</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.assert_is_list_of_streams_or_None" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.assert_is_list_or_None">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">assert_is_list_or_None</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.assert_is_list_or_None" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.asynch_element_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">asynch_element_agent</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.asynch_element_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.asynch_element_func">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">asynch_element_func</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.asynch_element_func" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.element_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">element_agent</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.element_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.element_func">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">element_func</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.element_func" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.h">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">h</code><span class="sig-paren">(</span><em>f_type</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.h" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.h_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">h_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.h_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.list_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">list_agent</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.list_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.list_func">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">list_func</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.list_func" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.list_index_for_timestamp">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">list_index_for_timestamp</code><span class="sig-paren">(</span><em>in_list</em>, <em>start_index</em>, <em>timestamp</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.list_index_for_timestamp" title="Permalink to this definition">¶</a></dt>
-<dd><p>A helper function for timed operators.
-The basic idea is to return the earliest index in
-in_list.list with a time field that is greater than
-or equal to timestamp. If no such index exists then
-return a negative number.</p>
-<p>Returns positive integer i where:
-either: &#8216;FOUND TIME WINDOW IN IN_LIST&#8217;</p>
-<blockquote>
-<div>i &gt; start_index and
-i &lt;= in_list.stop  and
-in_list.list[i-1].time &gt;= timestamp and
-(i == start_index+1 or in_list.list[i-2].time &lt; timestamp)</div></blockquote>
-<dl class="docutils">
-<dt>or: &#8216;NO TIME WINDOW IN IN_LIST&#8217;</dt>
-<dd><dl class="first last docutils">
-<dt>i &lt; 0 and</dt>
-<dd><dl class="first docutils">
-<dt>(in_list.list[in_list.stop-1] &lt;= timestamp</dt>
-<dd>or</dd>
-</dl>
-<p class="last">(in_list.start = in_list.stop)</p>
-</dd>
-</dl>
-</dd>
-<dt>Requires:</dt>
-<dd>start_index &gt;= in_list.start and
-start_index &lt; in_list.stop</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.main">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.many_outputs_source">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">many_outputs_source</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.many_outputs_source" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.many_outputs_source_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">many_outputs_source_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.many_outputs_source_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.many_to_many">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">many_to_many</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>in_streams</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.many_to_many" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.many_to_many_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">many_to_many_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>in_streams</em>, <em>out_streams</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.many_to_many_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.merge">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">merge</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>in_streams</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.merge" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.merge_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">merge_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>in_streams</em>, <em>out_stream</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.merge_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.multiple_inputs_sink_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">multiple_inputs_sink_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>in_streams</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.multiple_inputs_sink_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.op">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">op</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>in_stream</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.op" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.op_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">op_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>in_stream</em>, <em>out_stream</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.op_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.remove_novalue_and_open_multivalue">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">remove_novalue_and_open_multivalue</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.remove_novalue_and_open_multivalue" title="Permalink to this definition">¶</a></dt>
-<dd><p>This function returns a list which is the
-same as the input parameter l except that
-(1) _no_value elements in l are deleted and
-(2) each _multivalue element in l is opened</p>
-<blockquote>
-<div>i.e., for an object _multivalue(list_x)
-each element of list_x appears in the
-returned list.</div></blockquote>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.single_input_sink_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">single_input_sink_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>in_stream</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.single_input_sink_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.single_output_source">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">single_output_source</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.single_output_source" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.single_output_source_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">single_output_source_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>out_stream</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.single_output_source_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.sink">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">sink</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>in_stream</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.sink" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.split">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">split</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>in_stream</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.split" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.split_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">split_agent</code><span class="sig-paren">(</span><em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>in_stream</em>, <em>out_streams</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.split_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.stream_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">stream_agent</code><span class="sig-paren">(</span><em>inputs</em>, <em>outputs</em>, <em>f_type</em>, <em>f</em>, <em>f_args</em>, <em>state=None</em>, <em>call_streams=None</em>, <em>window_size=None</em>, <em>step_size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.stream_agent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provides a common signature for converting functions f on standard
-Python data structures to streams.</p>
-<dl class="docutils">
-<dt>f_type <span class="classifier-delimiter">:</span> <span class="classifier">{&#8216;element&#8217;, &#8216;list&#8217;, &#8216;window&#8217;, &#8216;timed&#8217;, &#8216;asynch_element&#8217;}</span></dt>
-<dd>f_type identifies the type of function f where f is the next parameter.</dd>
-</dl>
-<p>f : function
-inputs : {Stream, list of Streams}</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>When stream_func has:</dt>
-<dd>no input streams, inputs is None
-a single input Stream, inputs is a single Stream
-multiple input Streams, inputs is a list of Streams.</dd>
-</dl>
-</div></blockquote>
-<p>outputs : list of Streams
-state : object</p>
-<blockquote>
-<div>state is None or is an arbitrary object. The state captures
-all the information necessary to continue processing the input
-streams.</div></blockquote>
-<dl class="docutils">
-<dt>call_streams <span class="classifier-delimiter">:</span> <span class="classifier">None or list of Stream</span></dt>
-<dd>If call_streams is None then the program sets it to inputs
-(converting inputs to a list of Stream if necessary).
-This function is called when, and only when any stream in
-call_streams is modified.</dd>
-<dt>window_size <span class="classifier-delimiter">:</span> <span class="classifier">None or int</span></dt>
-<dd>window_size must be a positive integer if f_type is &#8216;window&#8217;
-or &#8216;timed&#8217;. window_size is the size of the moving window on
-which the function operates.</dd>
-<dt>step_size <span class="classifier-delimiter">:</span> <span class="classifier">None or int</span></dt>
-<dd>step_size must be a positive integer if f_type is &#8216;window&#8217;
-or &#8216;timed&#8217;. step_size is the number of steps by which the
-moving window moves on each execution of the function.</dd>
-</dl>
-<p>None</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.stream_func">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">stream_func</code><span class="sig-paren">(</span><em>inputs</em>, <em>f_type</em>, <em>f</em>, <em>num_outputs</em>, <em>state=None</em>, <em>call_streams=None</em>, <em>window_size=None</em>, <em>step_size=None</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.stream_func" title="Permalink to this definition">¶</a></dt>
-<dd><p>Provides a common signature for converting functions f on standard
-Python data structures to streams.</p>
-<dl class="docutils">
-<dt>f_type <span class="classifier-delimiter">:</span> <span class="classifier">{&#8216;element&#8217;, &#8216;list&#8217;, &#8216;window&#8217;, &#8216;timed&#8217;, &#8216;asynch_element&#8217;}</span></dt>
-<dd>f_type identifies the type of function f where f is the next parameter.</dd>
-</dl>
-<p>f : function
-inputs : {Stream, list of Streams}</p>
-<blockquote>
-<div><dl class="docutils">
-<dt>When stream_func has:</dt>
-<dd>no input streams, inputs is None
-a single input Stream, inputs is a single Stream
-multiple input Streams, inputs is a list of Streams.</dd>
-</dl>
-</div></blockquote>
-<dl class="docutils">
-<dt>num_outputs <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd>A nonnegative integer which is the number of output streams of
-this function.</dd>
-<dt>state <span class="classifier-delimiter">:</span> <span class="classifier">object</span></dt>
-<dd>state is None or is an arbitrary object. The state captures
-all the information necessary to continue processing the input
-streams.</dd>
-<dt>call_streams <span class="classifier-delimiter">:</span> <span class="classifier">None or list of Stream</span></dt>
-<dd>If call_streams is None then the program sets it to inputs
-(converting inputs to a list of Stream if necessary).
-This function is called when, and only when any stream in
-call_streams is modified.</dd>
-<dt>window_size <span class="classifier-delimiter">:</span> <span class="classifier">None or int</span></dt>
-<dd>window_size must be a positive integer if f_type is &#8216;window&#8217;
-or &#8216;timed&#8217;. window_size is the size of the moving window on
-which the function operates.</dd>
-<dt>step_size <span class="classifier-delimiter">:</span> <span class="classifier">None or int</span></dt>
-<dd>step_size must be a positive integer if f_type is &#8216;window&#8217;
-or &#8216;timed&#8217;. step_size is the number of steps by which the
-moving window moves on each execution of the function.</dd>
-</dl>
-<dl class="docutils">
-<dt>list of Streams</dt>
-<dd>Function f is applied to the appropriate data structure in
-the input streams to put values in the output streams.
-stream_func returns the output streams.</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.timed_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">timed_agent</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.timed_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.timed_func">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">timed_func</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.timed_func" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.window_agent">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">window_agent</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.window_agent" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="nested.OperatorsTestParallel.window_func">
-<code class="descclassname">nested.OperatorsTestParallel.</code><code class="descname">window_func</code><span class="sig-paren">(</span><em>f</em>, <em>inputs</em>, <em>num_outputs</em>, <em>state</em>, <em>call_streams</em>, <em>window_size</em>, <em>step_size</em><span class="sig-paren">)</span><a class="headerlink" href="#nested.OperatorsTestParallel.window_func" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
 <div class="section" id="module-nested.Stream">
 <span id="nested-stream-module"></span><h2>nested.Stream module<a class="headerlink" href="#module-nested.Stream" title="Permalink to this headline">¶</a></h2>
 <p>This module contains the Stream class. The
@@ -1719,20 +1200,11 @@ list of id&#8217;s associated with it</dd>
 </dd></dl>
 
 </div>
-<div class="section" id="module-nested.kerlee_parallel">
-<span id="nested-kerlee-parallel-module"></span><h2>nested.kerlee_parallel module<a class="headerlink" href="#module-nested.kerlee_parallel" title="Permalink to this headline">¶</a></h2>
-<dl class="function">
-<dt id="nested.kerlee_parallel.main">
-<code class="descclassname">nested.kerlee_parallel.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nested.kerlee_parallel.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
-</div>
 <div class="section" id="nested-run-module">
 <h2>nested.run module<a class="headerlink" href="#nested-run-module" title="Permalink to this headline">¶</a></h2>
 </div>
-<div class="section" id="module-nested">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-nested" title="Permalink to this headline">¶</a></h2>
-</div>
+
 </div>
 
 
@@ -1748,19 +1220,12 @@ list of id&#8217;s associated with it</dd>
 <li><a class="reference internal" href="#module-nested.Agent">nested.Agent module</a></li>
 <li><a class="reference internal" href="#module-nested.Animation">nested.Animation module</a></li>
 <li><a class="reference internal" href="#module-nested.MakeNetwork">nested.MakeNetwork module</a></li>
-<li><a class="reference internal" href="#module-nested.MakeNetworkParallel">nested.MakeNetworkParallel module</a></li>
-<li><a class="reference internal" href="#module-nested.MakeParallelNetwork">nested.MakeParallelNetwork module</a></li>
-<li><a class="reference internal" href="#nested-makeparallelnetwork2-module">nested.MakeParallelNetwork2 module</a></li>
-<li><a class="reference internal" href="#module-nested.MakeParallelNetworkParallel">nested.MakeParallelNetworkParallel module</a></li>
-<li><a class="reference internal" href="#module-nested.Multiprocessing">nested.Multiprocessing module</a></li>
 <li><a class="reference internal" href="#module-nested.Operators">nested.Operators module</a></li>
-<li><a class="reference internal" href="#module-nested.OperatorsTestParallel">nested.OperatorsTestParallel module</a></li>
 <li><a class="reference internal" href="#module-nested.Stream">nested.Stream module</a></li>
 <li><a class="reference internal" href="#module-nested.Subgraph">nested.Subgraph module</a></li>
 <li><a class="reference internal" href="#module-nested.SystemParameters">nested.SystemParameters module</a></li>
 <li><a class="reference internal" href="#module-nested.components">nested.components module</a></li>
 <li><a class="reference internal" href="#module-nested.helper">nested.helper module</a></li>
-<li><a class="reference internal" href="#module-nested.kerlee_parallel">nested.kerlee_parallel module</a></li>
 <li><a class="reference internal" href="#nested-run-module">nested.run module</a></li>
 <li><a class="reference internal" href="#module-nested">Module contents</a></li>
 </ul>
@@ -1776,7 +1241,7 @@ list of id&#8217;s associated with it</dd>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/nested.txt"
+      <li><a href="sources/nested.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -1805,7 +1270,7 @@ list of id&#8217;s associated with it</dd>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.6</a>
       
       |
-      <a href="_sources/nested.txt"
+      <a href="sources/nested.txt"
           rel="nofollow">Page source</a>
     </div>
 
