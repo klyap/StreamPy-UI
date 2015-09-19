@@ -672,18 +672,12 @@ def single_output_source_agent(
     def g():
         if not f_args:
             if state is None:
-                'state is NONE'
                 return [f()]
             else:
-                print 'state is ' + str(state)
                 val = f(state)
-                print 'val is ' + str(val)
-                return [val]
         else:
-            print 'state is ' + str(state)
             if state is None: return [f(f_args)]
             else:
-                print 'state is ' + str(state)
                 return [f(state, f_args)]
 
     return h_agent(

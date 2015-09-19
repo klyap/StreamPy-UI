@@ -42,8 +42,9 @@ def consecutive_ints(curr_num):
     return curr_num + 1
 
 def show(curr_num, stop_num):
-    print str(curr_num) + ' is not ' + str(stop_num)
+    
     if curr_num == stop_num:
+        print str(curr_num) + ' is' + str(stop_num)
         plt.show()
     
 def make_shapes(curr_num):
@@ -60,25 +61,122 @@ def make_shapes(curr_num):
     points = [[1 * j, 1 * j], [3 * j, 1 * j], [2 * j, 4 * j]]
     polygon = plt.Polygon(points, fill='r')
     plt.gca().add_patch(polygon)
-    figure, ax = plt.subplots()
-    figure.canvas.draw()
+
 
 def make_rec():
     fig = plt.figure()
     ax = fig.add_subplot(111)
     rect = ax.patch  # a Rectangle instance
     rect.set_facecolor('green')
+
     fig.canvas.draw()
-    
+
+def make_rec2():
+    figure, ax = plt.subplots()
+    figure.canvas.draw()
+    figure.canvas.flush_events()
+
 def run():
     curr_num = 0
-    for i in range(4):
-        curr_num = consecutive_ints(curr_num)
+    for i in range(5):
+        #curr_num = consecutive_ints(curr_num)
         #make_shapes(curr_num)
-        make_rec()
-        #show(curr_num, 5)
+        make_rec2()
+        #show(i, 5)
 
-run()
+#run()
+
+def animation():
+    """
+    Pyplot animation example.
+    
+    The method shown here is only for very simple, low-performance
+    use.  For more demanding applications, look at the animation
+    module and the examples that use it.
+    """
+    
+    import matplotlib.pyplot as plt
+    import numpy as np
+    
+
+    for i in xrange(5):
+        plt.xticks(())
+        plt.yticks(())
+        x = np.zeros((6,), dtype=np.int)
+        y = np.zeros((5,), dtype=np.int)
+        z = x * y[:,np.newaxis]
+        print z
+        if i==0:
+            #p = plt.imshow(z)
+            p = plt.imshow(z)
+            fig = plt.gcf()
+            plt.clim()   # clamp the color limits
+            plt.title("Boring slide show")
+        else:
+            j = i * 0.5
+            rectangle = plt.Rectangle((j, j), 1, .1, fc='r')
+            plt.gca().add_patch(rectangle)
+            #z = z + 2
+            #p.set_data(z)
+    
+        print("step", i)
+        plt.pause(0.5)
+#animation()
+
+import matplotlib.pyplot as plt
+from matplotlib.patches import Circle, Wedge, Polygon
+import numpy as np
+
+def make_canvas():
+    plt.xticks(())
+    plt.yticks(())
+    x = np.ones((6,), dtype=np.int)
+    y = np.ones((5,), dtype=np.int)
+    z = x * y[:,np.newaxis]
+    p = plt.imshow(z)
+    #fig = plt.gcf()
+    plt.title("Fun with shapes!")
+    return plt
+
+
+def make_rectangle(plt):
+    j = i * 0.5
+    rectangle = plt.Rectangle((j, j), 1, .1, fc='r')
+    plt.gca().add_patch(rectangle)
+    plt.pause(0.5)
+
+def make_triangle(plt):
+    j = i * 0.5
+    points = [[1 * j, 1 * j], [3 * j, 1 * j], [2 * j, 4 * j]]
+    polygon = plt.Polygon(points, fill='r')
+    plt.gca().add_patch(polygon)
+    plt.pause(0.5)
+
+def make_circle(x, y, radius):
+    circle = plt.Circle((x, y), radius=radius, fc='pink', linewidth=0)
+    return circle
+
+def show_shape(shape):
+    plt.gca().add_patch(shape)
+    plt.pause(0.5)
+
+def make_donut(plt):
+    j = i * 0.5
+    donut = Wedge((j,j), .2, 0, 360, width=0.05, fc='pink', alpha = 0.5)
+    plt.gca().add_patch(donut)
+    
+def make_polygon(plt):
+    polygon = Polygon(np.random.rand(3,2), True)
+    plt.gca().add_patch(polygon)
+    
+for i in range(5):
+    #make_rectangle(make_canvas())
+    make_canvas()
+    show_shape(make_circle(i, i * 2, i))
+    #make_triangle(make_canvas())
+    #make_donut(make_canvas())
+    #make_polygon(make_canvas())
+    
 '''
 import numpy as np
 import pylab as pl

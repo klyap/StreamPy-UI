@@ -42,18 +42,12 @@ var cy = cytoscape({
   
   elements: {
     nodes: [
-	{ data: { id: 'multiply_elements_stream1', name:'multiply_elements_stream1 '} },
-	{ data: { id: 'split_into_even_odd_stream', name:'split_into_even_odd_stream '} },
-	{ data: { id: 'print_value_stream1', name:'print_value_stream1 '} },
-	{ data: { id: 'multiply_elements_stream', name:'multiply_elements_stream '} },
 	{ data: { id: 'print_value_stream', name:'print_value_stream '} },
+	{ data: { id: 'multiply_elements', name:'multiply_elements '} },
 	{ data: { id: 'generate_stream_of_random_integers', name:'generate_stream_of_random_integers '} }],
 edges: [
-	{ data: { stream: 'multiply_elements_stream1_PORT_product', source: 'multiply_elements_stream1', target: 'print_value_stream', name:'multiply_elements_stream1_PORT_product:'} },
-	{ data: { stream: 'split_into_even_odd_stream_PORT_even', source: 'split_into_even_odd_stream', target: 'multiply_elements_stream1', name:'split_into_even_odd_stream_PORT_even:'} },
-	{ data: { stream: 'split_into_even_odd_stream_PORT_odd', source: 'split_into_even_odd_stream', target: 'multiply_elements_stream', name:'split_into_even_odd_stream_PORT_odd:'} },
-	{ data: { stream: 'multiply_elements_stream_PORT_product', source: 'multiply_elements_stream', target: 'print_value_stream1', name:'multiply_elements_stream_PORT_product:'} },
-	{ data: { stream: 'generate_stream_of_random_integers_PORT_out', source: 'generate_stream_of_random_integers', target: 'split_into_even_odd_stream', name:'generate_stream_of_random_integers_PORT_out:'} }]
+	{ data: { stream: 'multiply_elements_PORT_product', source: 'multiply_elements', target: 'print_value_stream', name:'multiply_elements_PORT_product:'} },
+	{ data: { stream: 'generate_stream_of_random_integers_PORT_out', source: 'generate_stream_of_random_integers', target: 'multiply_elements', name:'generate_stream_of_random_integers_PORT_out:'} }]
     },
   
   layout: {
@@ -66,9 +60,9 @@ edges: [
 
 var myVar;
 
-var stream_names = ['split_into_even_odd_stream_PORT_even', 'generate_stream_of_random_integers_PORT_out', 'multiply_elements_stream_PORT_product', 'split_into_even_odd_stream_PORT_odd', 'multiply_elements_stream1_PORT_product',];
-var edge = ['edge[stream= "split_into_even_odd_stream_PORT_even"]', 'edge[stream= "generate_stream_of_random_integers_PORT_out"]', 'edge[stream= "multiply_elements_stream_PORT_product"]', 'edge[stream= "split_into_even_odd_stream_PORT_odd"]', 'edge[stream= "multiply_elements_stream1_PORT_product"]',];
-var value = ['' ,'89' ,'' ,'' ,'' ,'' ,'' ,'' ,'89' ,'' ,'' ,'' ,'' ,'89' ,'' ,'' ,'' ,'89000.0' ,'' ,'' ,'' ,'' ,'89000.0' ,'' ,'' ,'' ,'89' ,'89000.0' ,'' ,'' ,'' ,'89' ,'89000.0' ,'' ,'' ,'' ,'' ,'89000.0' ,'89' ,'' ,'' ,'' ,'' ,'89' ,'' ,'' ,'' ,'89000.0' ,'' ,'' ,'' ,'' ,'89000.0' ,'' ,'' ,'' ,'67' ,'89000.0' ,'' ,'' ,'' ,'67' ,'89000.0' ,'' ,'' ,'' ,'' ,'89000.0' ,'67' ,'' ,'' ,'' ,'' ,'67' ,'' ,'' ,'' ,'67000.0' ,'' ,'' ,'' ,'' ,'67000.0' ,'' ,'' ,'' ,'40' ,'67000.0' ,'' ,'' ,'' ,'40' ,'67000.0' ,'' ,'' ,'40' ,'' ,'67000.0' ,'' ,'' ,'40' ,'' ,'' ,'' ,'' ,'40' ,'' ,'' ,'' ,'' ,'40' ,'' ,'' ,'' ,'' ,'40' ,'96' ,'' ,'' ,'' ,'' ,'96' ,'' ,'' ,'80.0' ,'96' ,'' ,'' ,'' ,'80.0' ,'96' ,'' ,'' ,'' ,'80.0' ,'96' ,'' ,'' ,'' ,'80.0' ,'96' ,'' ,'' ,'' ,'' ,'96' ,'99' ,'' ,'' ,'' ];
+var stream_names = ['multiply_elements_PORT_product', 'generate_stream_of_random_integers_PORT_out',];
+var edge = ['edge[stream= "multiply_elements_PORT_product"]', 'edge[stream= "generate_stream_of_random_integers_PORT_out"]',];
+var value = ['' ,'62' ,'62000.0' ,'' ,'62000.0' ,'83' ,'' ,'83' ,'83000.0' ,'' ,'83000.0' ,'1' ,'' ,'1' ,'1000.0' ,'' ,'1000.0' ,'39' ,'' ,'39' ,'39000.0' ,'' ,'39000.0' ,'35' ,'' ,'35' ,'35000.0' ,'' ,'35000.0' ,'69' ];
  
 var n = 0;
 function myFunction() {

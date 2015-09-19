@@ -68,7 +68,6 @@ def make_network(stream_names_tuple, agent_descriptor_dict):
     # Create agents with the specified description
     # and put the agents into agent_dict.
     for agent_name in agent_descriptor_dict.keys():
-        print 'agent_name:', agent_name
         in_list, out_list, f, f_type, f_args, state, call_streams = \
           agent_descriptor_dict[agent_name]
 
@@ -190,8 +189,7 @@ def make_agent_descriptor_dict(instance_dict, comp_list):
         dic[s_name][5] = state
 
         json_dic[s_name] = [input, output, func, type, param, state]
-        pprint(json_dic)
-    
+
     json_dic = json.dumps(json_dic, sort_keys=True, 
                               indent=4, separators=(',', ': '))    
 
@@ -217,8 +215,7 @@ def make_stream_names_tuple(instance_dict, comp_list):
                 s = src_name + '_PORT_' + src_port
                 if s not in stream_names_tuple:
                     stream_names_tuple = stream_names_tuple + (s,)
-                print 's is: '
-                pprint(stream_names_tuple)
+
         for i in instance_dict[comp]['out']:
 
             #Replace random id with 0, 1, 2...
@@ -231,7 +228,7 @@ def make_stream_names_tuple(instance_dict, comp_list):
 
             if s not in stream_names_tuple:
                 stream_names_tuple = stream_names_tuple + (s,)
-    pprint(stream_names_tuple)
+    
     stream_names_tuple_json = json.dumps(stream_names_tuple, sort_keys=True, 
                               indent=4, separators=(',', ': '))
     return stream_names_tuple_json
@@ -319,7 +316,7 @@ def make_my_JSON(instance_dict, comp_list, json_data):
             
         groups = str(groups)
         groups = groups.replace('\'', '\"').replace('u\"', '\"')
-        pprint(groups)
+        
     else:
         groups = None
 
@@ -366,8 +363,6 @@ def make_my_JSON(instance_dict, comp_list, json_data):
     
     f.write('\"stream_names_tuple\":\n')
     f.write(stream_names_tuple)
-    print 'stream_names_tuple wrote:'
-    pprint(stream_names_tuple)
     
     if groups:
         f.write(',\n')

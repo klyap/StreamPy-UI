@@ -14,14 +14,12 @@ from multiprocessing.managers import State
 # Tutorial
 def consecutive_ints(state):
     #return randint(0, 9)
-    print 'received: ' + str(state)
     if state == None:
         state = 0
     state = state + 1
     return state
 
 def show(curr_num, stop_num):
-    print str(curr_num) + ' is not ' + str(stop_num)
     if curr_num == int(stop_num[0]):
         #plt.axes()
         plt.xticks(())

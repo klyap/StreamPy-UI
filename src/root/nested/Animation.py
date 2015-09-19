@@ -134,10 +134,10 @@ def make_seq(agent_descriptor_dict, stream_names_tuple):
     # (roughly how many values you want to go through)
     time_step = 5
     for t in range(time_step):
-        print '--------- time step: ', t
+        # print '--------- time step: ', t
         # Append t to each of the timer streams
         for stream in t_dict.values():
-            print '-------', stream.name
+            # print '-------', stream.name
             stream.append(t)
 
             # Print messages in transit to the input port
@@ -158,8 +158,8 @@ def make_seq(agent_descriptor_dict, stream_names_tuple):
 
                     val_str = val_str + '\'' + value[1:-1] + '\' ,'
 
-                    print "messages in ", stream_name, "to", agent.name
-                    print stream.recent[stream.start[agent]:stream.stop]
+                    # print "messages in ", stream_name, "to", agent.name
+                    # print stream.recent[stream.start[agent]:stream.stop]
             streams_list_done = True
 
     val_str = 'var value = [' + val_str[:-1] + '];'

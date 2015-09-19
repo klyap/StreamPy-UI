@@ -92,7 +92,6 @@ user_name = getpass.getuser()
 
 if user_os == 'darwin':
     path = '/Users/' + user_name + '/Downloads/'
-    print path
 elif user_os[:3] == 'win':
     path = 'C:/Users/' + user_name + '/Downloads/'
 elif 'linux' in user_os:
