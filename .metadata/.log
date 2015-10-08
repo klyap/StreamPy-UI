@@ -1473,3 +1473,13 @@ java.lang.RuntimeException: Finished restoring information for: /usr/bin/python2
 
 !ENTRY org.python.pydev.shared_core 4 4 2015-09-04 13:31:37.972
 !MESSAGE Info: Rebuilding internal caches: /Users/kerleeyap/Documents/PStreams-UI/.metadata/.plugins/com.python.pydev.analysis/python_v1_3tswbhuj9gc4kibexhrzgzdx/python.pydevsysteminfo (Expected error to be provided and got no error!)
+!SESSION 2015-09-20 17:03:30.151 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/kerleeyap/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -data /Users/kerleeyap/Documents/PStreams-UI -keyring /Users/kerleeyap/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2015-09-20 17:03:37.146
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences

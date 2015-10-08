@@ -25,12 +25,12 @@ Requirements: Python 2.7
 	``git clone https://github.com/klyap/PStreams-UI.git``
 
 #. Navigate to the folder with the code in it by typing in terminal/command line:
-	``cd src/root/nested``
+	``cd PStreams-UI/src/root/nested``
 
 #. Run the tool by typing in:
 	``python run.py FILENAMEHERE.json``
    where ``FILENAMEHERE`` is the name of a JSON file downloaded from flowhub.com or one that is in the special format for this tool.
-
+   You can create this file by following the steps below!
 
 .. _download_ui:
 Download UI parts
@@ -115,7 +115,7 @@ Make a graph
           If you don’t type in anything, it will be left empty
 
    #. *in* : input stream
-          Leave this blank! This port is where the data stream comes in!
+          Leave this blank! This port is where you connect to other components!
 
     .. figure::  _static/zoom_component.png
         :align:   center
@@ -162,7 +162,7 @@ Run the tool
 
 Visual debugger
 ================
-#. After you run the tool. a window should pop up with an animated graph on it. This is the visual debugger. You can see numbers get multiplied as they pass through the graph.
+#. After you run the tool, a window should pop up with an animated graph on it. This is the visual debugger. You can see numbers get multiplied as they pass through the graph.
     .. figure::  _static/animated_simple_graph.png
         :align:   center
 

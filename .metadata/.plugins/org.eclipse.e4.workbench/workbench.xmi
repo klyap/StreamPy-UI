@@ -46,8 +46,9 @@
           <tags>persp.showIn:org.eclipse.ui.views.ResourceNavigator</tags>
           <tags>persp.showIn:org.python.pydev.navigator.view</tags>
           <tags>persp.showIn:org.eclipse.ui.views.ContentOutline</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_va0-sVNDEeWrSNWo7iAyTw" selectedElement="_va0-tFNDEeWrSNWo7iAyTw" horizontal="true">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_va0-sVNDEeWrSNWo7iAyTw" selectedElement="_va0-slNDEeWrSNWo7iAyTw" horizontal="true">
             <children xsi:type="basic:PartStack" xmi:id="_va0-slNDEeWrSNWo7iAyTw" elementId="topLeft" containerData="2600" selectedElement="_va0-s1NDEeWrSNWo7iAyTw">
+              <tags>active</tags>
               <children xsi:type="advanced:Placeholder" xmi:id="_va0-s1NDEeWrSNWo7iAyTw" elementId="org.python.pydev.navigator.view" ref="_vawtQFNDEeWrSNWo7iAyTw"/>
             </children>
             <children xsi:type="basic:PartSashContainer" xmi:id="_va0-tFNDEeWrSNWo7iAyTw" containerData="7400" selectedElement="_va0-tVNDEeWrSNWo7iAyTw">
@@ -84,14 +85,12 @@
       <children xsi:type="basic:PartStack" xmi:id="_vatC4VNDEeWrSNWo7iAyTw" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_3Wz90FNDEeWseeNC3ZqiXQ">
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
-        <tags>active</tags>
+        <tags>noFocus</tags>
         <children xsi:type="basic:Part" xmi:id="_3Wz90FNDEeWseeNC3ZqiXQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="run" iconURI="platform:/plugin/org.python.pydev/icons/python_file.gif" closeable="true">
-          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.python.pydev.editor.PythonEditor&quot; name=&quot;run.py&quot; partName=&quot;run&quot; title=&quot;run&quot; tooltip=&quot;/Users/kerleeyap/Documents/PStreams-UI/src/root/nested/run.py&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.ide.FileStoreEditorInputFactory&quot; uri=&quot;file:/Users/kerleeyap/Documents/PStreams-UI/src/root/nested/run.py&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;2310&quot; selectionTopPixel=&quot;877&quot;/>&#xA;&lt;/editor>"/>
+          <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;editor id=&quot;org.python.pydev.editor.PythonEditor&quot; name=&quot;run.py&quot; partName=&quot;run&quot; title=&quot;run&quot; tooltip=&quot;/Users/kerleeyap/Documents/PStreams-UI/src/root/nested/run.py&quot;>&#xA;&lt;input factoryID=&quot;org.eclipse.ui.ide.FileStoreEditorInputFactory&quot; uri=&quot;file:/Users/kerleeyap/Documents/PStreams-UI/src/root/nested/run.py&quot;/>&#xA;&lt;editorState selectionHorizontalPixel=&quot;0&quot; selectionLength=&quot;0&quot; selectionOffset=&quot;2310&quot; selectionTopPixel=&quot;855&quot;/>&#xA;&lt;/editor>"/>
           <tags>Editor</tags>
           <tags>org.python.pydev.editor.PythonEditor</tags>
           <tags>removeOnHide</tags>
-          <tags>active</tags>
-          <tags>activeOnClose</tags>
         </children>
       </children>
     </sharedElements>
@@ -99,6 +98,8 @@
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view CommonNavigator.LINKING_ENABLED=&quot;0&quot; org.eclipse.ui.navigator.resources.workingSets.showTopLevelWorkingSets=&quot;0&quot;/>"/>
       <tags>View</tags>
       <tags>categoryTag:PyDev</tags>
+      <tags>active</tags>
+      <tags>activeOnClose</tags>
       <menus xmi:id="_vb4uoFNDEeWrSNWo7iAyTw" elementId="org.python.pydev.navigator.view">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -128,7 +129,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vYRZ8FNDEeWrSNWo7iAyTw" elementId="org.eclipse.ui.workbench.file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_w1e-0FNDEeWseeNC3ZqiXQ" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ulddPFNDEeWrSNWo7iAyTw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_M8sEMF_0EeWXvO-6B_yCIg" elementId="print" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/print_edit.png" tooltip="Print" command="_ulddPFNDEeWrSNWo7iAyTw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vYRZ8VNDEeWrSNWo7iAyTw" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -149,7 +150,7 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vYSBAFNDEeWrSNWo7iAyTw" elementId="org.eclipse.ui.workbench.navigate">
         <tags>Draggable</tags>
-        <children xsi:type="menu:HandledToolItem" xmi:id="_w1hbEFNDEeWseeNC3ZqiXQ" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ulc2EVNDEeWrSNWo7iAyTw"/>
+        <children xsi:type="menu:HandledToolItem" xmi:id="_M8ugcF_0EeWXvO-6B_yCIg" elementId="org.eclipse.ui.window.pinEditor" visible="false" iconURI="platform:/plugin/org.eclipse.ui/icons/full/etool16/pin_editor.png" tooltip="Pin Editor" type="Check" command="_ulc2EVNDEeWrSNWo7iAyTw"/>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_vYSBAVNDEeWrSNWo7iAyTw" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -480,7 +481,7 @@
     <bindings xmi:id="_umAPi1NDEeWrSNWo7iAyTw" keySequence="ALT+COMMAND+Q Q" command="_ulcO7VNDEeWrSNWo7iAyTw">
       <tags>platform:cocoa</tags>
     </bindings>
-    <bindings xmi:id="_wrrikVNDEeWseeNC3ZqiXQ" keySequence="COMMAND+CTRL+F" command="_umOR81NDEeWrSNWo7iAyTw"/>
+    <bindings xmi:id="_Mcs8kF_0EeWXvO-6B_yCIg" keySequence="COMMAND+CTRL+F" command="_umOR81NDEeWrSNWo7iAyTw"/>
   </bindingTables>
   <bindingTables xmi:id="_ul13dVNDEeWrSNWo7iAyTw" elementId="org.eclipse.debug.ui.memoryview" bindingContext="_ulhHWVNDEeWrSNWo7iAyTw">
     <bindings xmi:id="_ul13dlNDEeWrSNWo7iAyTw" keySequence="COMMAND+T" command="_ulc2HFNDEeWrSNWo7iAyTw"/>
@@ -533,7 +534,7 @@
     <bindings xmi:id="_ul6v-lNDEeWrSNWo7iAyTw" keySequence="COMMAND+SHIFT+T" command="_ulc2MlNDEeWrSNWo7iAyTw"/>
   </bindingTables>
   <bindingTables xmi:id="_umO5BVNDEeWrSNWo7iAyTw" contributorURI="platform:/fragment/org.eclipse.e4.ui.workbench.renderers.swt.cocoa" bindingContext="_ulGQmVNDEeWrSNWo7iAyTw">
-    <bindings xmi:id="_wrsJoFNDEeWseeNC3ZqiXQ" keySequence="M1+W" command="_umO5A1NDEeWrSNWo7iAyTw"/>
+    <bindings xmi:id="_Mcs8kV_0EeWXvO-6B_yCIg" keySequence="M1+W" command="_umO5A1NDEeWrSNWo7iAyTw"/>
   </bindingTables>
   <bindingTables xmi:id="_vauRAVNDEeWrSNWo7iAyTw" bindingContext="_vauRAFNDEeWrSNWo7iAyTw"/>
   <bindingTables xmi:id="_vauRA1NDEeWrSNWo7iAyTw" bindingContext="_vauRAlNDEeWrSNWo7iAyTw"/>
